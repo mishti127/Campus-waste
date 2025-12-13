@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waste Detection - Page 1</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+    }
+
+    /* HEADER */
+    header {
+      width:100%;
+      background: #ffffff;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-size: 20px;
+      font-weight: 600;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    .back-btn {
+      cursor: pointer;
+      font-size: 30px;
+      color: #333;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: #f0f0f0;
+    }
+
+    .header-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 30px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .left-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      background: #d9d9d9;
+      border-radius: 50%;
+    }
+
+    h2 {
+      font-size: 26px;
+    }
+    .main.content {
+      margin-top: 0px;
+      text-align: left;
+    }
+
+
+    /* MAIN CONTAINER */
+    .container {
+    width: 70%;
+    height: 250px;
+    margin: 140px auto 20px auto;
+    background: white;
+    padding: 70px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    border: 2px dashed #cbd5e1;
+}
+
+    
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .btn-area {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    button {
+      padding: 14px 25px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      border: 2px solid #e2e8f0;
+    }
+
+    .capture-btn {
+      background: #16a34a;
+      color: white;
+      border: none;
+    }
+
+    .upload-btn {
+      background: white;
+      color: #111827;
+    }
+
+    /* HOW TO USE SECTION */
+    .how-container {
+      width: 85%;
+      margin: 40px auto 30px auto;
+      padding: 35px;
+      background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+      border-left: 5px solid #6366f1;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
+    }
+
+    .how-container h3 {
+      color: #4f46e5;
+      margin-bottom: 20px;
+    }
+
+    .how-container ul {
+      list-style-position: inside;
+      padding-left: 0;
+    }
+
+    .how-container li {
+      margin-bottom: 12px;
+      color: #374151;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="dashboard.html" class="back-btn">←</a>
+    <span class="header-title">
+      🌿 Scan Waste
+    </span>
+  </header>
+
+  <div class = "main content">
+    <h2 style="font-size:25px; margin-bottom:100px;">Take a photo or upload an image of waste to identify its type and proper disposal method.</h2>
+  </div>
+  <div class="container">
+   <p> <span style="font-size:20px; margin-top:20px; color:#0f0e0e;">Identify Your Waste</span></p> <p><span style='font-size:20px; color:#131212;'>Use your camera or upload an image</span></p>
+
+    <div class="btn-area">
+      <button class="capture-btn" onclick="location.href='result.html'">📸 Capture Photo</button>
+      <button class="upload-btn" onclick="document.getElementById('uploadInput').click()">⬆ Upload Image</button>
+    </div>
+  </div>
+
+  <!-- INSTRUCTIONS SECTION -->
+  <div class="how-container">
+    <h3 style="font-size:20px; margin-top:0; color:#4f46e5;">📋 How to Use This Waste Scanner</h3>
+    <ul style="font-size:16px; line-height:1.8; color:#333; margin:15px 0;">
+      <li><strong>Capture Photo:</strong> Click this button to open your device's camera. Take a clear photo of the waste item you want to identify.</li>
+      <li><strong>Upload Image:</strong> Click this button to select an existing image from your phone or computer gallery.</li>
+      <li><strong>Clear View:</strong> Make sure the waste item is clearly visible and well-lit for accurate detection.</li>
+      <li><strong>Get Results:</strong> Once the image is captured or uploaded, the system will analyze it and show you the waste type and proper disposal method.</li>
+      <li><strong>Learn More:</strong> View detailed segregation tips and disposal instructions based on the identified waste category.</li>
+    </ul>
+  </div>
+
+<input type="file" id="uploadInput" accept="image/*" style="display:none;" />
+</body>
+</html>

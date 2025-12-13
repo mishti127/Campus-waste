@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Campus Waste Dashboard</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+  }
+
+  body {
+    background: #f4f8f4;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top Header Bar */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    padding: 0 40px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+  }
+
+  .topbar .brand {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1a7f37;
+  }
+
+  .topbar .logout-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .topbar .logout-btn:hover {
+    color: #333;
+  }
+
+  /* Main Container */
+  .main-content {
+    flex: 5;
+    overflow-y: auto;
+    padding: 40px 60px;
+  }
+
+  /* Greeting Section */
+  .greet {
+    margin-bottom: 40px;
+  }
+
+  .greet h3 {
+    font-size: 27px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .greet p {
+    font-size: 20px;
+    color: #666;
+    margin-top: 5px;
+  }
+
+  /* Card Grid */
+  .card-row {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 50px;
+  }
+
+  .card {
+    background: white;
+    width: 400px;
+    height:200px;
+    padding: 25px 15px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  .card img {
+    width: 54px;
+    margin-bottom: 10px;
+  }
+
+  .card h4 {
+    font-size: 20px;
+    margin-bottom: 7px;
+    color: #1a1a1a;
+  }
+
+  .card p {
+    font-size: 17px;
+    color: #666;
+  }
+
+  /* Stats Section */
+  .stats-section {
+    margin-bottom: 40px;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 50px;
+  }
+
+  .stat-card {
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+
+  .stat-card h4 {
+    font-size: 19px;
+    color: #666;
+    margin-bottom: 25px;
+    font-weight: 500;
+  }
+
+  .stat-card p {
+    font-size: 24px;
+    color: #1a7f37;
+    font-weight: 700;
+  }
+
+  /* Quick Tip */
+  .quick-tip {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .quick-tip h4 {
+    font-size: 20px;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  .quick-tip p {
+    font-size: 17px;
+    color: #666;
+    line-height: 2.5;
+  }
+
+  /* Button */
+  .btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #1a7f37;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease;
+  }
+
+  .btn:hover {
+    background: #155e3b;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">🌿 Campus Waste</div>
+  <button class="logout-btn">Logout</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+  <!-- Greeting -->
+  <div class="greet">
+    <h3>Welcome back, Campus Student! 👋</h3><br/>
+    <p>Let's make our campus more sustainable. What would you like to do today?</p>
+  </div>
+
+  <!-- ACTION CARDS -->
+  <div class="card-row">
+    <a href="scan.html" class="card" aria-label="Scan Waste">
+      <img src="https://cdn-icons-png.flaticon.com/512/3011/3011270.png">
+      <h4>Scan Waste</h4>
+      <p>Identify waste type instantly</p>
+    </a>
+
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png">
+      <h4>Segregation Guide</h4>
+      <p>Learn proper waste sorting</p>
+    </div>
+
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/535/535239.png">
+      <h4>Find Nearest Bin</h4>
+      <p>Locate disposal bins on campus</p>
+    </div>
+
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/1827/1827951.png">
+      <h4>Report Issue</h4>
+      <p>Report overflowing or damaged bins</p>
+    </div>
+  </div>
+
+  <!-- STATS SECTION -->
+  <div class="stats-section">
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <h4>Your Impact</h4>
+        <p>32 items sorted</p>
+      </div>
+
+      <div class="stat-card">
+        <h4>Campus Progress</h4>
+        <p>85% proper sorting</p>
+      </div>
+
+      <div class="stat-card">
+        <h4>Active Users</h4>
+        <p>1,247 students</p>
+      </div>
+
+    </div>
+
+    <!-- QUICK TIP NOTE -->
+    <div class="quick-tip">
+      <h4>💡 Quick Tip</h4>
+      <p>Did you know? Properly segregating waste can reduce landfill waste by up to 70% and make recycling more efficient!</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelector('.logout-btn').addEventListener('click', function() {
+    window.location.href = 'index.html';
+  });
+</script>
+
+</body>
+</html>
