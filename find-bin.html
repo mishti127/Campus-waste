@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bin Locator Map - Campus Waste Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .header-icon-container {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #166534;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .intro-text {
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+        }
+
+        /* Filters */
+        .filter-section {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .filter-btn.inactive {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .filter-btn.inactive:hover {
+            background: #e5e7eb;
+        }
+
+        .filter-btn.active-blue {
+            background: #2563eb;
+            color: white;
+        }
+
+        .filter-btn.active-green {
+            background: #16a34a;
+            color: white;
+        }
+
+        .filter-btn.active-red {
+            background: #dc2626;
+            color: white;
+        }
+
+        .filter-btn.active-gray {
+            background: #6b7280;
+            color: white;
+        }
+
+        /* Grid Layout */
+        .content-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        /* Map Section */
+        .map-section {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        .map-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .location-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            color: #16a34a;
+            cursor: pointer;
+            font-size: 0.875rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+
+        .location-btn:hover {
+            background: #f0fdf4;
+        }
+
+        /* Campus Map */
+        .campus-map {
+            position: relative;
+            background: #f0fdf4;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            padding-bottom: 75%;
+            margin-bottom: 1rem;
+        }
+
+        .map-container {
+            position: absolute;
+            inset: 0;
+        }
+
+        /* Buildings */
+        .building {
+            position: absolute;
+            background: #d1d5db;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .building-library {
+            top: 25%;
+            left: 20%;
+            width: 15%;
+            height: 15%;
+        }
+
+        .building-cafeteria {
+            top: 40%;
+            left: 40%;
+            width: 20%;
+            height: 15%;
+        }
+
+        .building-tech {
+            top: 20%;
+            left: 65%;
+            width: 18%;
+            height: 12%;
+        }
+
+        .building-student-center {
+            top: 70%;
+            left: 45%;
+            width: 22%;
+            height: 15%;
+        }
+
+        /* Paths */
+        .path-horizontal {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #9ca3af;
+            opacity: 0.5;
+        }
+
+        .path-vertical {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: #9ca3af;
+            opacity: 0.5;
+        }
+
+        /* Bin Markers */
+        .bin-marker {
+            position: absolute;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            transform: translate(-50%, -50%);
+        }
+
+        .bin-marker:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .bin-marker.blue {
+            background: #3b82f6;
+        }
+
+        .bin-marker.green {
+            background: #22c55e;
+        }
+
+        .bin-marker.red {
+            background: #ef4444;
+        }
+
+        .bin-marker.gray {
+            background: #6b7280;
+        }
+
+        .bin-marker.hidden {
+            display: none;
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            position: absolute;
+            top: -0.25rem;
+            right: -0.25rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .status-full {
+            background: #ef4444;
+        }
+
+        .status-maintenance {
+            background: #f97316;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 0.5rem;
+            background: #111827;
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            white-space: nowrap;
+            display: none;
+            z-index: 10;
+        }
+
+        .bin-marker:hover .tooltip {
+            display: block;
+        }
+
+        .tooltip-title {
+            font-size: 0.875rem;
+        }
+
+        .tooltip-subtitle {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* User Location */
+        .user-location {
+            position: absolute;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: #16a34a;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .user-ping {
+            position: absolute;
+            inset: -4px;
+            background: #16a34a;
+            border-radius: 50%;
+            animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-dot {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+        }
+
+        .legend-dot.with-indicator {
+            position: relative;
+        }
+
+        .legend-dot .status-indicator {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+
+        .legend-text {
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+
+        /* Bin List */
+        .bin-list-section {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        .bin-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .bin-item {
+            width: 100%;
+            text-align: left;
+            background: #f9fafb;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .bin-item:hover {
+            background: #f3f4f6;
+        }
+
+        .bin-item.hidden {
+            display: none;
+        }
+
+        .bin-item-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .bin-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bin-icon.blue {
+            background: #3b82f6;
+        }
+
+        .bin-icon.green {
+            background: #22c55e;
+        }
+
+        .bin-icon.red {
+            background: #ef4444;
+        }
+
+        .bin-icon.gray {
+            background: #6b7280;
+        }
+
+        .bin-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .bin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+
+        .bin-type {
+            font-weight: 600;
+        }
+
+        .bin-type.blue {
+            color: #1d4ed8;
+        }
+
+        .bin-type.green {
+            color: #15803d;
+        }
+
+        .bin-type.red {
+            color: #b91c1c;
+        }
+
+        .bin-type.gray {
+            color: #374151;
+        }
+
+        .bin-distance {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .bin-location {
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+
+        .bin-status {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+
+        .status-full-badge {
+            color: #b91c1c;
+            background: #fef2f2;
+        }
+
+        .status-maintenance-badge {
+            color: #c2410c;
+            background: #fff7ed;
+        }
+
+        /* Back Button */
+        .back-button-section {
+            margin-top: 2rem;
+        }
+
+        .main-back-button {
+            background: #16a34a;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .main-back-button:hover {
+            background: #15803d;
+        }
+
+        @media (min-width: 640px) {
+            .main-back-button {
+                width: auto;
+            }
+        }
+
+        /* Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .icon-sm {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .icon-white {
+            stroke: white;
+        }
+
+        .icon-gray {
+            stroke: #4b5563;
+        }
+
+        .icon-green {
+            stroke: #16a34a;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <button class="back-btn" onclick="goBack()">
+                    <svg class="icon icon-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="header-icon-container">
+                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <h1>Find Nearest Bin</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="intro-text">
+                <p>Locate disposal bins across campus and find the nearest one for your waste type.</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-section">
+                <div class="filter-header">
+                    <svg class="icon-sm icon-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    <h3>Filter by Type</h3>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active-gray" data-filter="all" onclick="filterBins('all')">All Bins</button>
+                    <button class="filter-btn inactive" data-filter="Recyclable" onclick="filterBins('Recyclable')">Recyclable</button>
+                    <button class="filter-btn inactive" data-filter="Organic" onclick="filterBins('Organic')">Organic</button>
+                    <button class="filter-btn inactive" data-filter="E-Waste" onclick="filterBins('E-Waste')">E-Waste</button>
+                    <button class="filter-btn inactive" data-filter="General" onclick="filterBins('General')">General</button>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Map Section -->
+                <div class="map-section">
+                    <div class="map-header">
+                        <h2>Campus Map</h2>
+                        <button class="location-btn">
+                            <svg class="icon-sm icon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                            </svg>
+                            <span>My Location</span>
+                        </button>
+                    </div>
+
+                    <!-- Campus Map -->
+                    <div class="campus-map">
+                        <div class="map-container">
+                            <!-- Buildings -->
+                            <div class="building building-library">Library</div>
+                            <div class="building building-cafeteria">Cafeteria</div>
+                            <div class="building building-tech">Tech</div>
+                            <div class="building building-student-center">Student Center</div>
+
+                            <!-- Paths -->
+                            <div class="path-horizontal"></div>
+                            <div class="path-vertical"></div>
+
+                            <!-- Bin Markers -->
+                            <div class="bin-marker blue" data-type="Recyclable" style="left: 25%; top: 30%;" onclick="viewBinDetails('1')">
+                                <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <div class="tooltip">
+                                    <p class="tooltip-title">Library Entrance</p>
+                                    <p class="tooltip-subtitle">Recyclable</p>
+                                </div>
+                            </div>
+
+                            <div class="bin-marker green" data-type="Organic" style="left: 45%; top: 45%;" onclick="viewBinDetails('2')">
+                                <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <div class="tooltip">
+                                    <p class="tooltip-title">Cafeteria</p>
+                                    <p class="tooltip-subtitle">Organic</p>
+                                </div>
+                            </div>
+
+                            <div class="bin-marker red" data-type="E-Waste" style="left: 70%; top: 25%;" onclick="viewBinDetails('3')">
+                                <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <div class="tooltip">
+                                    <p class="tooltip-title">Tech Building</p>
+                                    <p class="tooltip-subtitle">E-Waste</p>
+                                </div>
+                            </div>
+
+                            <div class="bin-marker gray" data-type="General" style="left: 15%; top: 70%;" onclick="viewBinDetails('4')">
+                                <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <div class="tooltip">
+                                    <p class="tooltip-title">Main Gate</p>
+                                    <p class="tooltip-subtitle">General</p>
+                                </div>
+                            </div>
+
+                            <div class="bin-marker blue" data-type="Recyclable" style="left: 80%; top: 60%;" onclick="viewBinDetails('5')">
+                                <div class="status-indicator status-full"></div>
+                                <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <div class="tooltip">
+                                    <p class="tooltip-title">Sports Complex</p>
+                                    <p class="tooltip-subtitle">Recyclable</p>
+                                </div>
+                            </div>
+
+                            <div class="bin-marker green" data-type="Organic" style="left: 50%; top: 75%;" onclick="viewBinDetails('6')">
+                                <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <div class="tooltip">
+                                    <p class="tooltip-title">Student Center</p>
+                                    <p class="tooltip-subtitle">Organic</p>
+                                </div>
+                            </div>
+
+                            <div class="bin-marker gray" data-type="General" style="left: 35%; top: 15%;" onclick="viewBinDetails('7')">
+                                <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <div class="tooltip">
+                                    <p class="tooltip-title">Parking Lot A</p>
+                                    <p class="tooltip-subtitle">General</p>
+                                </div>
+                            </div>
+
+                            <div class="bin-marker blue" data-type="Recyclable" style="left: 60%; top: 50%;" onclick="viewBinDetails('8')">
+                                <div class="status-indicator status-maintenance"></div>
+                                <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <div class="tooltip">
+                                    <p class="tooltip-title">Admin Building</p>
+                                    <p class="tooltip-subtitle">Recyclable</p>
+                                </div>
+                            </div>
+
+                            <!-- User Location -->
+                            <div class="user-location">
+                                <div class="user-ping"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #16a34a;"></div>
+                            <span class="legend-text">You are here</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #3b82f6;"></div>
+                            <span class="legend-text">Bin location</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot with-indicator" style="background: #3b82f6;">
+                                <div class="status-indicator status-full"></div>
+                            </div>
+                            <span class="legend-text">Full bin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bin List Section -->
+                <div class="bin-list-section">
+                    <h2 style="margin-bottom: 1rem;">Nearby Bins</h2>
+                    <div class="bin-list">
+                        <!-- Bin 1 -->
+                        <button class="bin-item" data-type="Recyclable" data-distance="50" onclick="viewBinDetails('1')">
+                            <div class="bin-item-content">
+                                <div class="bin-icon blue">
+                                    <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="bin-details">
+                                    <div class="bin-header">
+                                        <p class="bin-type blue">Recyclable</p>
+                                        <span class="bin-distance">50m</span>
+                                    </div>
+                                    <p class="bin-location">Library Entrance</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Bin 4 -->
+                        <button class="bin-item" data-type="General" data-distance="80" onclick="viewBinDetails('4')">
+                            <div class="bin-item-content">
+                                <div class="bin-icon gray">
+                                    <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="bin-details">
+                                    <div class="bin-header">
+                                        <p class="bin-type gray">General</p>
+                                        <span class="bin-distance">80m</span>
+                                    </div>
+                                    <p class="bin-location">Main Gate</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Bin 7 -->
+                        <button class="bin-item" data-type="General" data-distance="100" onclick="viewBinDetails('7')">
+                            <div class="bin-item-content">
+                                <div class="bin-icon gray">
+                                    <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="bin-details">
+                                    <div class="bin-header">
+                                        <p class="bin-type gray">General</p>
+                                        <span class="bin-distance">100m</span>
+                                    </div>
+                                    <p class="bin-location">Parking Lot A</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Bin 2 -->
+                        <button class="bin-item" data-type="Organic" data-distance="120" onclick="viewBinDetails('2')">
+                            <div class="bin-item-content">
+                                <div class="bin-icon green">
+                                    <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="bin-details">
+                                    <div class="bin-header">
+                                        <p class="bin-type green">Organic</p>
+                                        <span class="bin-distance">120m</span>
+                                    </div>
+                                    <p class="bin-location">Cafeteria</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Bin 6 -->
+                        <button class="bin-item" data-type="Organic" data-distance="150" onclick="viewBinDetails('6')">
+                            <div class="bin-item-content">
+                                <div class="bin-icon green">
+                                    <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="bin-details">
+                                    <div class="bin-header">
+                                        <p class="bin-type green">Organic</p>
+                                        <span class="bin-distance">150m</span>
+                                    </div>
+                                    <p class="bin-location">Student Center</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Bin 8 -->
+                        <button class="bin-item" data-type="Recyclable" data-distance="180" onclick="viewBinDetails('8')">
+                            <div class="bin-item-content">
+                                <div class="bin-icon blue">
+                                    <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="bin-details">
+                                    <div class="bin-header">
+                                        <p class="bin-type blue">Recyclable</p>
+                                        <span class="bin-distance">180m</span>
+                                    </div>
+                                    <p class="bin-location">Admin Building</p>
+                                    <span class="bin-status status-maintenance-badge">Maintenance</span>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Bin 3 -->
+                        <button class="bin-item" data-type="E-Waste" data-distance="200" onclick="viewBinDetails('3')">
+                            <div class="bin-item-content">
+                                <div class="bin-icon red">
+                                    <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="bin-details">
+                                    <div class="bin-header">
+                                        <p class="bin-type red">E-Waste</p>
+                                        <span class="bin-distance">200m</span>
+                                    </div>
+                                    <p class="bin-location">Tech Building</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Bin 5 -->
+                        <button class="bin-item" data-type="Recyclable" data-distance="300" onclick="viewBinDetails('5')">
+                            <div class="bin-item-content">
+                                <div class="bin-icon blue">
+                                    <svg class="icon-sm icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="bin-details">
+                                    <div class="bin-header">
+                                        <p class="bin-type blue">Recyclable</p>
+                                        <span class="bin-distance">300m</span>
+                                    </div>
+                                    <p class="bin-location">Sports Complex</p>
+                                    <span class="bin-status status-full-badge">Full</span>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-button-section">
+                <button class="main-back-button" onclick="goBack()">Back to Dashboard</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentFilter = 'all';
+
+        function filterBins(filterType) {
+            currentFilter = filterType;
+
+            // Update filter buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                const btnFilter = btn.getAttribute('data-filter');
+                btn.className = 'filter-btn';
+                
+                if (btnFilter === filterType) {
+                    if (filterType === 'all') {
+                        btn.classList.add('active-gray');
+                    } else if (filterType === 'Recyclable') {
+                        btn.classList.add('active-blue');
+                    } else if (filterType === 'Organic') {
+                        btn.classList.add('active-green');
+                    } else if (filterType === 'E-Waste') {
+                        btn.classList.add('active-red');
+                    } else if (filterType === 'General') {
+                        btn.classList.add('active-gray');
+                    }
+                } else {
+                    btn.classList.add('inactive');
+                }
+            });
+
+            // Filter map markers
+            const markers = document.querySelectorAll('.bin-marker');
+            markers.forEach(marker => {
+                const markerType = marker.getAttribute('data-type');
+                if (filterType === 'all' || markerType === filterType) {
+                    marker.classList.remove('hidden');
+                } else {
+                    marker.classList.add('hidden');
+                }
+            });
+
+            // Filter bin list items
+            const binItems = document.querySelectorAll('.bin-item');
+            binItems.forEach(item => {
+                const itemType = item.getAttribute('data-type');
+                if (filterType === 'all' || itemType === filterType) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        function viewBinDetails(binId) {
+            // Navigate to bin details page
+            alert('Viewing details for Bin #' + binId + '\n\nIn a full application, this would navigate to the bin details page.');
+            // In a real app: window.location.href = 'bin-details.html?id=' + binId;
+        }
+
+        function goBack() {
+            // Navigate back to dashboard
+            window.history.back();
+            // Or: window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>
