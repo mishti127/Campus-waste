@@ -15,3 +15,4 @@ Next steps you might want:
 - Hook `Scan Waste` to a camera/webcam + ML model or API.
 - Connect `Find Nearest Bin` to a map provider (Leaflet/Google Maps).
 
+"# CAMPUS_WASTE" 
