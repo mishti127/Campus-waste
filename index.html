@@ -1,167 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Campus Waste Management — Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Campus Waste • Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:"Inter",sans-serif; }
-
-    body {
-      background:#f4f8f4;
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      padding-top: 10px;
+    :root{
+      --bg:#f3f7f3;
+      --card:#ffffff;
+      --green:#1a7f37;
+      --muted:#6b7280;
+      --soft-shadow: 0 8px 30px rgba(17,24,39,0.06);
+      --glass: 0 6px 18px rgba(17,24,39,0.04);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    body{
+      background: linear-gradient(180deg, var(--bg), #eef6ee);
+      display:grid;
+      place-items:center;
+      padding:40px; /* more outer space */
+       color:#0f1721;
     }
 
-    /* Bigger container */
-    .container {
+    .frame{
       width:100%;
-      max-width:650px;
-      padding:40px;
-      height:600px;
+      max-width:1100px; /* increase container width */
+       border-radius:18px;
+       overflow:hidden;
+      display:grid;
+      grid-template-columns: 440px 1fr; /* slightly wider left column */
+       gap:24px; /* add space between columns */
+        background:linear-gradient(180deg,#f7fff7,#ffffff);
+        box-shadow: var(--soft-shadow);
+        align-items:stretch;
+     }
+
+    /* Left illustration / welcome */
+    .side {
+      padding:44px; /* more breathing room */
+      background:linear-gradient(135deg, rgba(26,127,55,0.03), rgba(255,255,255,0));
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      justify-content:center;
+      min-height:480px; /* taller section */
     }
 
     .logo {
-      width:100px;
-      height:80px;
-      margin:0 auto 3px;
-      background:#1a7f37;
-      border-radius:50%;
+      width:56px;height:56px;border-radius:12px;display:grid;place-items:center;
+      font-weight:800;color:var(--green);background:linear-gradient(180deg,#e8f7ec,#f1fbf2);
+      font-size:26px;box-shadow:var(--glass)
+    }
+    .hero-title{font-size:20px;font-weight:700;color:#0f3418;margin-top:4px}
+    .hero-sub{color:var(--muted);font-size:14px;max-width:36ch}
+    .leaf-ill {margin-top:auto;display:block;max-width:100%;opacity:0.98}
+
+    .sparkles{display:flex;gap:8px;margin-top:6px}
+    .spark {background:#eaf7ee;color:var(--green);padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px;border:1px solid rgba(26,127,55,0.06)}
+
+    /* Right column - login card */
+    .card {
+      padding:36px; /* more inner spacing */
+      background:var(--card);
+      box-shadow:var(--glass);
+      border-right: 1px solid rgba(0,0,0,0.03); /* separator on the right when card is left */
       display:flex;
-      justify-content:center;
-      align-items:center;
-      color:white;
-      font-size:42px;
+      flex-direction:column;
+      gap:16px;
+      align-items:stretch;
+      min-height:480px;
     }
 
-    h2 {
-      font-weight:700;
-      margin-bottom:5px;
-      text-align:center;
-      font-size:28px;
+    .welcome {font-size:18px;font-weight:700;color:#0f1721;margin-bottom:8px}
+    .subtitle {font-size:13px;color:var(--muted)}
+
+    .form {display:flex;flex-direction:column;gap:12px;margin-top:20px}
+    label{font-size:13px;color:#333;margin-bottom:6px}
+    .input {
+      display:flex;align-items:center;gap:10px;background:#f7faf7;border-radius:12px;padding:8px 12px;border:1px solid rgba(15,23,33,0.04)
+    }
+    .input input{
+      border:0;background:transparent;outline:none;font-size:14px;width:100%;
+    }
+    .field-error { 
+      color:#b91c1c; 
+      font-size:13px; 
+      margin:6px 0 0 0; 
+      display:none; 
+      line-height:1.25;
+    }
+    .input.invalid { border-color: rgba(185,28,28,0.14); box-shadow: 0 6px 12px rgba(185,28,28,0.06); }
+
+    /* disabled submit state */
+    .btn[disabled] {
+      background:#9aa79a;
+      color:#f3f7f3;
+      cursor:not-allowed;
+      box-shadow:none;
+      opacity:0.8;
     }
 
-    p.subtitle {
-      color:#666;
-      font-size:17px;
-      margin-bottom:35px;
-      text-align:center;
-    }
-
-    /* Bigger login card */
-    .login-card {
-      background:white;
-      padding:50px;
-      border-radius:16px;
-      box-shadow:0 6px 25px rgba(0,0,0,0.1);
-      width:100%;
-    }
-
-    .login-card h3 {
-      margin-bottom:25px;
-      color:#333;
-      font-size:22px;
-      text-align:center;
-    }
-
-    .input-group {
-      margin-bottom:22px;
-      width:100%;
-    }
-
-    .input-group label {
-      font-size:16px;
-      color:#444;
-      margin-bottom:8px;
-      display:block;
-    }
-
-    .input-group input {
-      width:100%;
-      padding:14px;
-      border-radius:10px;
-      border:1px solid #ccc;
-      font-size:16px;
-    }
+    .row{display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .checkbox{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
+    .link{color:var(--green);font-weight:600;font-size:13px;text-decoration:none}
 
     .btn {
-      width:100%;
-      padding:14px;
-      background:#1a7f37;
-      border:none;
-      border-radius:10px;
-      color:white;
-      font-size:18px;
-      font-weight:600;
-      cursor:pointer;
-      margin-top:10px;
+      margin-top:6px;
+      background:var(--green);
+      color:white;padding:12px;border-radius:12px;border:0;font-weight:700;font-size:15px;cursor:pointer;
+      box-shadow: 0 8px 18px rgba(26,127,55,0.12);
+      transition:transform .14s ease, box-shadow .14s ease;
+    }
+    .btn:active{transform:translateY(1px)}
+    .alt {background:transparent;color:var(--green);border:1px solid rgba(26,127,55,0.12);padding:10px 12px;border-radius:10px;font-weight:600}
+
+    .socials {display:flex;gap:10px;margin-top:6px}
+    .socials button{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:#fff;display:flex;align-items:center;gap:8px;justify-content:center;font-weight:700;color:var(--muted);cursor:pointer}
+    .note{font-size:12px;color:var(--muted);margin-top:6px}
+
+    /* errors */
+    .error{color:#b91c1c;font-size:13px;margin-top:2px;display:none}
+
+    /* compact visual tuning */
+    .mini {font-size:12px;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:960px){
+      .frame {grid-template-columns:1fr; gap:0}
+      .side {padding:20px}
+      .card {padding:20px}
     }
 
-    .btn:hover {
-      background:#16652c;
-    }
-
-    .signup {
-      text-align:center;
-      margin-top:18px;
-      color:#444;
-      font-size:15px;
-    }
-
-    .signup a {
-      color:#0f6fd3;
-      text-decoration:none;
-      font-weight:600;
-    }
-
-    .signup a:hover {
-      text-decoration:underline;
-    }
+    /* small microinteraction: grow leaf on focus */
+    .input input:focus ~ .leaf-grow, .input input:focus {outline:none}
+    .leaf-grow {transition:transform .18s ease}
+    .input input:focus ~ .leaf-grow{transform:scale(1.03) translateY(-3px)}
 
   </style>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:;">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-Frame-Options" content="DENY">
 </head>
 <body>
+  <div class="frame" role="main">
+    <section class="card" aria-labelledby="signin-title">
+      <div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div>
+            <div class="welcome" id="signin-title">Welcome back</div>
+            <div class="subtitle">Sign in to access campus recycling tools & events</div>
+          </div>
+        </div>
 
-  <div class="container">
+        <form class="form" id="loginForm" method="post" action="/api/auth/login" aria-label="Sign in form">
+          <div>
+            <label for="userId">Email or Student ID</label>
+            <div class="input" title="Email or id">
+              <span class="icon">👤</span>
+              <input id="userId" type="text" placeholder="you@campus.edu or 123456" autocomplete="username" aria-required="true" />
+            </div>
+            <div id="emailError" class="field-error" aria-live="polite"></div>
+          </div>
 
-    <div class="logo">🌿</div><br/>
+          <div>
+            <label for="password">Password</label>
+            <div class="input">
+              <span class="icon">🔒</span>
+              <input id="password" type="password" minlength="8" placeholder="••••••••" autocomplete="current-password" aria-required="true" />
+            </div>
+            <div id="passwordError" class="field-error" aria-live="polite"></div>
+          </div>
 
-    <h2>Campus Waste Management</h2>
-    <p class="subtitle">Sign in to manage waste sustainably</p>
+          <div class="row">
+            <label class="checkbox"><input id="remember" type="checkbox" /> Remember me</label>
+            <a class="link" href="#">Forgot?</a>
+          </div>
 
-    <div class="login-card">
-      <h3>Welcome Back</h3>
+          <div id="error" class="error" role="alert">Please enter both email and password.</div>
 
-      <div class="input-group">
-        <label>Email / Student ID</label>
-        <input id="userId" type="text" placeholder="Enter your email or ID">
+          <button type="submit" id="loginBtn" class="btn" aria-label="Login" disabled>Login</button>
+          <!-- server/submission errors show here (under the button) -->
+          <div id="submitError" class="field-error" role="alert" aria-live="polite"></div>
+
+          <div class="note">Or continue with</div>
+          <div class="socials" aria-hidden="false">
+            <button type="button" title="Continue with Google">G</button>
+            <button type="button" title="Continue with Facebook">f</button>
+            <button type="button" title="Continue with Apple"></button>
+          </div>
+        </form>
+
+        <div class="mini" style="margin-top:12px;color:var(--muted)">By signing in you agree to the <a class="link" href="#">terms</a> and <a class="link" href="#">privacy policy</a>.</div>
+        <div class="mini" style="margin-top:8px"><strong>New here?</strong> <a class="link" href="#">Create account</a></div>
+      </div>
+    </section>
+
+    <aside class="side" aria-hidden="false">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="logo" aria-hidden="true">🌿</div>
+        <div>
+          <div class="hero-title">Campus Waste</div>
+          <div class="hero-sub">Small acts on campus. Big impact for our planet — learn, sort, recycle.</div>
+        </div>
       </div>
 
-      <div class="input-group">
-        <label>Password</label>
-        <input id="password" type="password" placeholder="Enter your password">
+      <div class="sparkles" aria-hidden="true">
+        <div class="spark">Student-friendly</div>
+        <div class="spark">AI Scanner</div>
+        <div class="spark">Bin Locator</div>
       </div>
 
-      <button class="btn" id="loginBtn">Login</button>
+      <svg class="leaf-ill leaf-grow" width="280" height="160" viewBox="0 0 360 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="0" width="360" height="200" rx="12" fill="transparent"/>
+        <path d="M32 160c28-44 92-78 172-48 48 18 84 42 104 74-58 16-132 0-204-26z" fill="#e6f7ee"/>
+        <g transform="translate(30,20)">
+          <path d="M90 20c18-12 46-18 74 0-24 12-36 28-48 44-14-12-24-36-26-44z" fill="#dff3e6"/>
+          <circle cx="28" cy="118" r="28" fill="#e8f7ec"/>
+        </g>
+      </svg>
 
-      <p class="signup">
-        Don’t have an account? <a href="#">Sign Up</a>
-      </p>
-
-    </div>
-
+    </aside>
   </div>
 
   <script>
-    document.getElementById('loginBtn').addEventListener('click', function() {
-      window.location.href = 'dashboard.html';
-    });
-  </script>
+  (() => {
+    const form = document.getElementById('loginForm');
+    const emailEl = document.getElementById('userId');
+    const passEl = document.getElementById('password');
+    const emailError = document.getElementById('emailError');
+    const passError = document.getElementById('passwordError');
+    const submitError = document.getElementById('submitError');
+    const loginBtn = document.getElementById('loginBtn');
 
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validateEmail(v) {
+      if (!v) return ['Fill the details'];
+      if (!v.includes('@')) return ['Must contain "@"'];
+      if (v.includes('@') && !emailPattern.test(v)) return ['Enter a valid email (example: name@campus.edu)'];
+      return []; // valid
+    }
+
+    function validatePassword(v) {
+      if (!v) return ['Fill the details'];
+      const msgs = [];
+      if (v.length < 8) msgs.push('Must be at least 8 characters');
+      if (!/[A-Z]/.test(v)) msgs.push('Must include an uppercase letter');
+      if (!/[0-9]/.test(v)) msgs.push('Must include a number');
+      if (!/[!@#$%^&*()_\-+=[\]{};:\'",.<>\/?\\|`~]/.test(v)) msgs.push('Must include a special character');
+      return msgs; // empty array means valid
+    }
+
+    function showFieldError(elInput, elError, msgs) {
+      if (!msgs || msgs.length === 0) {
+        elError.textContent = '';
+        elError.style.display = 'none';
+        elInput.parentElement.classList.remove('invalid');
+        elInput.removeAttribute('aria-invalid');
+        return;
+      }
+
+      elError.innerHTML = '';
+      const ul = document.createElement('ul');
+      ul.style.margin = '0';
+      ul.style.paddingLeft = '18px';
+      ul.style.marginTop = '4px';
+      msgs.forEach(m => {
+        const li = document.createElement('li');
+        li.textContent = m;
+        li.style.marginBottom = '4px';
+        ul.appendChild(li);
+      });
+      elError.appendChild(ul);
+      elError.style.display = 'block';
+      elInput.parentElement.classList.add('invalid');
+      elInput.setAttribute('aria-invalid', 'true');
+    }
+
+    function updateSubmitState() {
+      const emailMsgs = validateEmail(emailEl.value.trim());
+      const passMsgs = validatePassword(passEl.value);
+      const ok = emailMsgs.length === 0 && passMsgs.length === 0;
+      loginBtn.disabled = !ok;
+      if (ok) submitError.style.display = 'none';
+    }
+    
+    emailEl.addEventListener('input', () => {
+      showFieldError(emailEl, emailError, validateEmail(emailEl.value.trim()));
+      updateSubmitState();
+      submitError.style.display = 'none';
+    });
+    passEl.addEventListener('input', () => {
+      showFieldError(passEl, passError, validatePassword(passEl.value));
+      updateSubmitState();
+      submitError.style.display = 'none';
+    });
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      submitError.style.display = 'none';
+      
+      // double-check validity before submitting
+      const emailMsgs = validateEmail(emailEl.value.trim());
+      const passMsgs = validatePassword(passEl.value);
+      if (emailMsgs.length || passMsgs.length) {
+        // keep button disabled and show contextual messages (already shown)
+        loginBtn.disabled = true;
+        return;
+      }
+
+      const identifier = emailEl.value.trim();
+      const password = passEl.value;
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ identifier, password })
+        });
+
+        if (!res.ok) {
+          submitError.textContent = 'Invalid credentials or server error.';
+          submitError.style.display = 'block';
+          loginBtn.disabled = false; // allow retry after server response
+          return;
+        }
+        const data = await res.json();
+        if (data.success) {
+          const redirect = (data.redirect && data.redirect.startsWith('/')) ? data.redirect : '/dashboard.html';
+          window.location.href = redirect;
+        } else {
+          submitError.textContent = 'Invalid credentials.';
+          submitError.style.display = 'block';
+          loginBtn.disabled = false;
+        }
+      } catch (err) {
+        console.error(err);
+        submitError.textContent = 'Network error. Try again.';
+        submitError.style.display = 'block';
+        loginBtn.disabled = false;
+      }
+    });
+
+    // initialize button state
+    updateSubmitState();
+  })();
+  </script>
 </body>
 </html>

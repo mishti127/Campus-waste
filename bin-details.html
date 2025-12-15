@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bin Details - Campus Waste Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 56rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .header-icon-container {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #166534;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .card {
+                padding: 2rem;
+            }
+        }
+
+        /* Bin Overview */
+        .bin-overview {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .bin-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bin-icon.blue {
+            background: #3b82f6;
+        }
+
+        .bin-icon.green {
+            background: #22c55e;
+        }
+
+        .bin-icon.red {
+            background: #ef4444;
+        }
+
+        .bin-icon.gray {
+            background: #374151;
+        }
+
+        .bin-info {
+            flex: 1;
+        }
+
+        .bin-info h2 {
+            margin-bottom: 0.25rem;
+        }
+
+        .bin-location {
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+        }
+
+        .bin-tags {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.875rem;
+        }
+
+        .bin-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+        }
+
+        .bin-tag.blue {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .bin-tag.green {
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+        .bin-tag.red {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .bin-tag.gray {
+            background: #f9fafb;
+            color: #374151;
+        }
+
+        .bin-distance {
+            color: #4b5563;
+        }
+
+        /* Capacity */
+        .capacity-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .capacity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .capacity-label {
+            color: #374151;
+        }
+
+        .capacity-value {
+            font-weight: 600;
+        }
+
+        .capacity-value.blue {
+            color: #1d4ed8;
+        }
+
+        .capacity-value.green {
+            color: #15803d;
+        }
+
+        .capacity-value.red {
+            color: #b91c1c;
+        }
+
+        .capacity-value.gray {
+            color: #374151;
+        }
+
+        .capacity-bar {
+            width: 100%;
+            background: #e5e7eb;
+            border-radius: 9999px;
+            height: 0.75rem;
+            overflow: hidden;
+        }
+
+        .capacity-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease;
+        }
+
+        .capacity-fill.blue {
+            background: #3b82f6;
+        }
+
+        .capacity-fill.green {
+            background: #22c55e;
+        }
+
+        .capacity-fill.red {
+            background: #ef4444;
+        }
+
+        .capacity-fill.gray {
+            background: #374151;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 0.75rem;
+        }
+
+        .info-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            stroke: #4b5563;
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+
+        .info-label {
+            color: #4b5563;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-value {
+            color: #111827;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .section-icon.green {
+            stroke: #16a34a;
+        }
+
+        .section-icon.red {
+            stroke: #dc2626;
+        }
+
+        /* Waste Items Grid */
+        .waste-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+            .waste-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .waste-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            border: 2px solid;
+        }
+
+        .waste-item.accepted {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .waste-item.not-accepted {
+            background: #fef2f2;
+            border-color: #fecaca;
+        }
+
+        .waste-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .waste-dot.green {
+            background: #16a34a;
+        }
+
+        .waste-dot.red {
+            background: #dc2626;
+        }
+
+        .waste-text {
+            color: #374151;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .action-buttons {
+                flex-direction: row;
+            }
+        }
+
+        .btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #15803d;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #16a34a;
+            border: 2px solid #16a34a;
+        }
+
+        .btn-secondary:hover {
+            background: #f0fdf4;
+        }
+
+        .btn-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            stroke: currentColor;
+        }
+
+        /* Tip Box */
+        .tip-box {
+            background: #eff6ff;
+            border: 2px solid #bfdbfe;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tip-box h3 {
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-box p {
+            color: #374151;
+        }
+
+        /* Back Link */
+        .back-link {
+            margin-top: 2rem;
+        }
+
+        .back-link button {
+            background: none;
+            border: none;
+            color: #16a34a;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .back-link button:hover {
+            color: #15803d;
+        }
+
+        /* Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .icon-white {
+            stroke: white;
+        }
+
+        .icon-gray {
+            stroke: #4b5563;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <button class="back-btn" onclick="goBack()">
+                    <svg class="icon icon-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="header-icon-container">
+                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <h1>Bin Details</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Bin Overview Card -->
+            <div class="card">
+                <div class="bin-overview">
+                    <div class="bin-icon blue" id="bin-icon">
+                        <svg style="width: 2rem; height: 2rem; stroke: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <div class="bin-info">
+                        <h2 id="bin-type">Recyclable Bin</h2>
+                        <p class="bin-location" id="bin-location">Library Entrance</p>
+                        <div class="bin-tags">
+                            <span class="bin-tag blue" id="bin-color-tag">Blue Bin</span>
+                            <span class="bin-distance" id="bin-distance">50m away</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Capacity -->
+                <div class="capacity-section">
+                    <div class="capacity-header">
+                        <span class="capacity-label">Current Capacity</span>
+                        <span class="capacity-value blue" id="capacity-value">75%</span>
+                    </div>
+                    <div class="capacity-bar">
+                        <div class="capacity-fill blue" id="capacity-fill" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <!-- Info Grid -->
+                <div class="info-grid">
+                    <div class="info-item">
+                        <svg class="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <div>
+                            <p class="info-label">Address</p>
+                            <p class="info-value" id="bin-address">Main Library Building, Ground Floor</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <svg class="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="info-label">Last Emptied</p>
+                            <p class="info-value" id="last-emptied">2 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accepted Waste Card -->
+            <div class="card">
+                <div class="section-header">
+                    <svg class="section-icon green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h2>Accepted Waste</h2>
+                </div>
+                <div class="waste-grid" id="accepted-waste">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Not Accepted Card -->
+            <div class="card">
+                <div class="section-header">
+                    <svg class="section-icon red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h2>Not Accepted</h2>
+                </div>
+                <div class="waste-grid" id="not-accepted-waste">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="getDirections()">
+                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                    <span>Get Directions</span>
+                </button>
+                <button class="btn btn-secondary" onclick="viewOnMap()">
+                    View on Map
+                </button>
+            </div>
+
+            <!-- Tip Box -->
+            <div class="tip-box">
+                <h3>💡 Disposal Tip</h3>
+                <p id="disposal-tip">Make sure items are clean and dry before disposal. Remove caps and labels when possible to improve recycling efficiency.</p>
+            </div>
+
+            <!-- Back Link -->
+            <div class="back-link">
+                <button onclick="goToDashboard()">← Back to Dashboard</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Bin data
+        const binData = {
+            '1': {
+                type: 'Recyclable',
+                color: 'Blue',
+                colorClass: 'blue',
+                location: 'Library Entrance',
+                distance: '50m',
+                address: 'Main Library Building, Ground Floor',
+                acceptedWaste: ['Plastic bottles', 'Paper', 'Cardboard', 'Glass bottles', 'Metal cans'],
+                notAccepted: ['Food waste', 'Plastic bags', 'Styrofoam', 'Contaminated items'],
+                lastEmptied: '2 hours ago',
+                capacity: 75,
+                tip: 'Make sure items are clean and dry before disposal. Remove caps and labels when possible to improve recycling efficiency.'
+            },
+            '2': {
+                type: 'Organic',
+                color: 'Green',
+                colorClass: 'green',
+                location: 'Cafeteria',
+                distance: '120m',
+                address: 'Student Cafeteria, Near Exit',
+                acceptedWaste: ['Food scraps', 'Fruit peels', 'Vegetable waste', 'Tea bags', 'Coffee grounds'],
+                notAccepted: ['Meat and bones', 'Dairy products', 'Plastic packaging', 'Oils'],
+                lastEmptied: '1 hour ago',
+                capacity: 45,
+                tip: 'Remove all packaging before disposal. Break larger items into smaller pieces for better composting.'
+            },
+            '3': {
+                type: 'E-Waste',
+                color: 'Red',
+                colorClass: 'red',
+                location: 'Tech Building',
+                distance: '200m',
+                address: 'Technology Building, Basement Level',
+                acceptedWaste: ['Batteries', 'Old phones', 'Chargers', 'Light bulbs', 'Small electronics'],
+                notAccepted: ['Large appliances', 'Monitors', 'Regular trash', 'Hazardous chemicals'],
+                lastEmptied: '5 hours ago',
+                capacity: 30,
+                tip: 'Handle electronic waste with care. Keep items dry and avoid damaging batteries.'
+            },
+            '4': {
+                type: 'General',
+                color: 'Black',
+                colorClass: 'gray',
+                location: 'Main Gate',
+                distance: '80m',
+                address: 'Main Entrance Gate, Right Side',
+                acceptedWaste: ['Tissues', 'Wrappers', 'Styrofoam', 'Contaminated paper', 'Mixed materials'],
+                notAccepted: ['Recyclables', 'E-waste', 'Organic waste', 'Hazardous materials'],
+                lastEmptied: '3 hours ago',
+                capacity: 60,
+                tip: 'Bag items properly before disposal. Check if items can be recycled before using general waste.'
+            },
+            '5': {
+                type: 'Recyclable',
+                color: 'Blue',
+                colorClass: 'blue',
+                location: 'Sports Complex',
+                distance: '300m',
+                address: 'Sports Complex, Main Entrance',
+                acceptedWaste: ['Plastic bottles', 'Paper', 'Cardboard', 'Glass bottles', 'Metal cans'],
+                notAccepted: ['Food waste', 'Plastic bags', 'Styrofoam', 'Contaminated items'],
+                lastEmptied: '6 hours ago',
+                capacity: 90,
+                tip: 'Make sure items are clean and dry before disposal. Remove caps and labels when possible to improve recycling efficiency.'
+            },
+            '6': {
+                type: 'Organic',
+                color: 'Green',
+                colorClass: 'green',
+                location: 'Student Center',
+                distance: '150m',
+                address: 'Student Center, East Wing',
+                acceptedWaste: ['Food scraps', 'Fruit peels', 'Vegetable waste', 'Tea bags', 'Coffee grounds'],
+                notAccepted: ['Meat and bones', 'Dairy products', 'Plastic packaging', 'Oils'],
+                lastEmptied: '4 hours ago',
+                capacity: 55,
+                tip: 'Remove all packaging before disposal. Break larger items into smaller pieces for better composting.'
+            },
+            '7': {
+                type: 'General',
+                color: 'Black',
+                colorClass: 'gray',
+                location: 'Parking Lot A',
+                distance: '100m',
+                address: 'Parking Lot A, Section 3',
+                acceptedWaste: ['Tissues', 'Wrappers', 'Styrofoam', 'Contaminated paper', 'Mixed materials'],
+                notAccepted: ['Recyclables', 'E-waste', 'Organic waste', 'Hazardous materials'],
+                lastEmptied: '1 hour ago',
+                capacity: 40,
+                tip: 'Bag items properly before disposal. Check if items can be recycled before using general waste.'
+            },
+            '8': {
+                type: 'Recyclable',
+                color: 'Blue',
+                colorClass: 'blue',
+                location: 'Admin Building',
+                distance: '180m',
+                address: 'Administration Building, Lobby',
+                acceptedWaste: ['Plastic bottles', 'Paper', 'Cardboard', 'Glass bottles', 'Metal cans'],
+                notAccepted: ['Food waste', 'Plastic bags', 'Styrofoam', 'Contaminated items'],
+                lastEmptied: '8 hours ago',
+                capacity: 85,
+                tip: 'Make sure items are clean and dry before disposal. Remove caps and labels when possible to improve recycling efficiency.'
+            }
+        };
+
+        // Get bin ID from URL parameter
+        function getBinIdFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id') || '1';
+        }
+
+        // Load bin data
+        function loadBinData() {
+            const binId = getBinIdFromURL();
+            const bin = binData[binId] || binData['1'];
+
+            // Update bin overview
+            document.getElementById('bin-type').textContent = bin.type + ' Bin';
+            document.getElementById('bin-location').textContent = bin.location;
+            document.getElementById('bin-color-tag').textContent = bin.color + ' Bin';
+            document.getElementById('bin-distance').textContent = bin.distance + ' away';
+            document.getElementById('bin-address').textContent = bin.address;
+            document.getElementById('last-emptied').textContent = bin.lastEmptied;
+            document.getElementById('capacity-value').textContent = bin.capacity + '%';
+            document.getElementById('disposal-tip').textContent = bin.tip;
+
+            // Update colors
+            const colorClass = bin.colorClass;
+            document.getElementById('bin-icon').className = 'bin-icon ' + colorClass;
+            document.getElementById('bin-color-tag').className = 'bin-tag ' + colorClass;
+            document.getElementById('capacity-value').className = 'capacity-value ' + colorClass;
+            document.getElementById('capacity-fill').className = 'capacity-fill ' + colorClass;
+            document.getElementById('capacity-fill').style.width = bin.capacity + '%';
+
+            // Load accepted waste
+            const acceptedContainer = document.getElementById('accepted-waste');
+            acceptedContainer.innerHTML = '';
+            bin.acceptedWaste.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'waste-item accepted';
+                div.innerHTML = `
+                    <div class="waste-dot green"></div>
+                    <span class="waste-text">${item}</span>
+                `;
+                acceptedContainer.appendChild(div);
+            });
+
+            // Load not accepted waste
+            const notAcceptedContainer = document.getElementById('not-accepted-waste');
+            notAcceptedContainer.innerHTML = '';
+            bin.notAccepted.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'waste-item not-accepted';
+                div.innerHTML = `
+                    <div class="waste-dot red"></div>
+                    <span class="waste-text">${item}</span>
+                `;
+                notAcceptedContainer.appendChild(div);
+            });
+        }
+
+        function getDirections() {
+            const binId = getBinIdFromURL();
+            const bin = binData[binId] || binData['1'];
+            alert('Opening directions to ' + bin.location + '...\n\nIn a full application, this would open your maps app with directions.');
+        }
+
+        function viewOnMap() {
+            window.location.href = 'bin-locator-map.html';
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function goToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+
+        // Load data when page loads
+        window.addEventListener('DOMContentLoaded', loadBinData);
+    </script>
+</body>
+</html>
