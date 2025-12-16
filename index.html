@@ -1,354 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Campus Waste • Sign In</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#f3f7f3;
-      --card:#ffffff;
-      --green:#1a7f37;
-      --muted:#6b7280;
-      --soft-shadow: 0 8px 30px rgba(17,24,39,0.06);
-      --glass: 0 6px 18px rgba(17,24,39,0.04);
-      --radius:14px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    body{
-      background: linear-gradient(180deg, var(--bg), #eef6ee);
-      display:grid;
-      place-items:center;
-      padding:40px; /* more outer space */
-       color:#0f1721;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoLite • Login</title>
 
-    .frame{
-      width:100%;
-      max-width:1100px; /* increase container width */
-       border-radius:18px;
-       overflow:hidden;
-      display:grid;
-      grid-template-columns: 440px 1fr; /* slightly wider left column */
-       gap:24px; /* add space between columns */
-        background:linear-gradient(180deg,#f7fff7,#ffffff);
-        box-shadow: var(--soft-shadow);
-        align-items:stretch;
-     }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    /* Left illustration / welcome */
-    .side {
-      padding:44px; /* more breathing room */
-      background:linear-gradient(135deg, rgba(26,127,55,0.03), rgba(255,255,255,0));
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-      justify-content:center;
-      min-height:480px; /* taller section */
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
 
-    .logo {
-      width:56px;height:56px;border-radius:12px;display:grid;place-items:center;
-      font-weight:800;color:var(--green);background:linear-gradient(180deg,#e8f7ec,#f1fbf2);
-      font-size:26px;box-shadow:var(--glass)
-    }
-    .hero-title{font-size:20px;font-weight:700;color:#0f3418;margin-top:4px}
-    .hero-sub{color:var(--muted);font-size:14px;max-width:36ch}
-    .leaf-ill {margin-top:auto;display:block;max-width:100%;opacity:0.98}
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:#f4f4f4;
+}
 
-    .sparkles{display:flex;gap:8px;margin-top:6px}
-    .spark {background:#eaf7ee;color:var(--green);padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px;border:1px solid rgba(26,127,55,0.06)}
+.main{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:80px 20px;
+}
 
-    /* Right column - login card */
-    .card {
-      padding:36px; /* more inner spacing */
-      background:var(--card);
-      box-shadow:var(--glass);
-      border-right: 1px solid rgba(0,0,0,0.03); /* separator on the right when card is left */
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-      align-items:stretch;
-      min-height:480px;
-    }
+.card{
+  background:#fff;
+  width:100%;
+  max-width:420px;
+  padding:36px;
+  border-radius:10px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.08);
+}
 
-    .welcome {font-size:18px;font-weight:700;color:#0f1721;margin-bottom:8px}
-    .subtitle {font-size:13px;color:var(--muted)}
+.brand{
+  text-align:center;
+  font-size:28px;
+  font-weight:800;
+  color:#1a7f37;
+  margin-bottom:10px;
+}
 
-    .form {display:flex;flex-direction:column;gap:12px;margin-top:20px}
-    label{font-size:13px;color:#333;margin-bottom:6px}
-    .input {
-      display:flex;align-items:center;gap:10px;background:#f7faf7;border-radius:12px;padding:8px 12px;border:1px solid rgba(15,23,33,0.04)
-    }
-    .input input{
-      border:0;background:transparent;outline:none;font-size:14px;width:100%;
-    }
-    .field-error { 
-      color:#b91c1c; 
-      font-size:13px; 
-      margin:6px 0 0 0; 
-      display:none; 
-      line-height:1.25;
-    }
-    .input.invalid { border-color: rgba(185,28,28,0.14); box-shadow: 0 6px 12px rgba(185,28,28,0.06); }
+h2{
+  margin-bottom:20px;
+}
 
-    /* disabled submit state */
-    .btn[disabled] {
-      background:#9aa79a;
-      color:#f3f7f3;
-      cursor:not-allowed;
-      box-shadow:none;
-      opacity:0.8;
-    }
+.input{
+  margin-bottom:16px;
+}
 
-    .row{display:flex;gap:10px;align-items:center;justify-content:space-between}
-    .checkbox{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
-    .link{color:var(--green);font-weight:600;font-size:13px;text-decoration:none}
+.input input{
+  width:100%;
+  padding:14px;
+  font-size:15px;
+  border-radius:4px;
+  border:1px solid #ddd;
+}
 
-    .btn {
-      margin-top:6px;
-      background:var(--green);
-      color:white;padding:12px;border-radius:12px;border:0;font-weight:700;font-size:15px;cursor:pointer;
-      box-shadow: 0 8px 18px rgba(26,127,55,0.12);
-      transition:transform .14s ease, box-shadow .14s ease;
-    }
-    .btn:active{transform:translateY(1px)}
-    .alt {background:transparent;color:var(--green);border:1px solid rgba(26,127,55,0.12);padding:10px 12px;border-radius:10px;font-weight:600}
+.password-box{
+  position:relative;
+}
 
-    .socials {display:flex;gap:10px;margin-top:6px}
-    .socials button{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:#fff;display:flex;align-items:center;gap:8px;justify-content:center;font-weight:700;color:var(--muted);cursor:pointer}
-    .note{font-size:12px;color:var(--muted);margin-top:6px}
+.password-box i{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  color:#555;
+}
 
-    /* errors */
-    .error{color:#b91c1c;font-size:13px;margin-top:2px;display:none}
+.actions{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:18px;
+}
 
-    /* compact visual tuning */
-    .mini {font-size:12px;color:var(--muted)}
+.actions a{
+  font-size:14px;
+  color:#1a7f37;
+  text-decoration:none;
+}
 
-    /* Responsive */
-    @media (max-width:960px){
-      .frame {grid-template-columns:1fr; gap:0}
-      .side {padding:20px}
-      .card {padding:20px}
-    }
+.login-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  background:#7ac142;
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  border-radius:30px;
+  cursor:pointer;
+}
 
-    /* small microinteraction: grow leaf on focus */
-    .input input:focus ~ .leaf-grow, .input input:focus {outline:none}
-    .leaf-grow {transition:transform .18s ease}
-    .input input:focus ~ .leaf-grow{transform:scale(1.03) translateY(-3px)}
+.divider{
+  text-align:center;
+  margin:22px 0;
+  color:#888;
+}
 
-  </style>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:;">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="X-Frame-Options" content="DENY">
+.social{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:4px;
+  font-weight:600;
+  cursor:pointer;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.google-icon{
+  width:18px;
+  height:18px;
+}
+
+.terms{
+  margin-top: 16px;
+  font-size: 12px; 
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.5;
+}
+
+footer{
+  background:#2f3437;
+  color:#ccc;
+  padding:20px;
+}
+
+.footer-item{
+  border-bottom:1px solid #444;
+  padding:12px 0;
+  cursor:pointer;
+}
+
+.footer-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.footer-content{
+  display:none;
+  font-size:14px;
+  margin-top:8px;
+  color:#aaa;
+}
+
+.footer-bottom{
+  text-align:center;
+  margin-top:20px;
+  font-size:14px;
+}
+</style>
 </head>
+
 <body>
-  <div class="frame" role="main">
-    <section class="card" aria-labelledby="signin-title">
-      <div>
-        <div style="display:flex;align-items:flex-start;gap:12px;">
-          <div>
-            <div class="welcome" id="signin-title">Welcome back</div>
-            <div class="subtitle">Sign in to access campus recycling tools & events</div>
-          </div>
-        </div>
 
-        <form class="form" id="loginForm" method="post" action="/api/auth/login" aria-label="Sign in form">
-          <div>
-            <label for="userId">Email or Student ID</label>
-            <div class="input" title="Email or id">
-              <span class="icon">👤</span>
-              <input id="userId" type="text" placeholder="you@campus.edu or 123456" autocomplete="username" aria-required="true" />
-            </div>
-            <div id="emailError" class="field-error" aria-live="polite"></div>
-          </div>
+<div class="main">
+  <div class="card">
+    <div class="brand">EcoLite</div>
+    <h2>Log in</h2>
 
-          <div>
-            <label for="password">Password</label>
-            <div class="input">
-              <span class="icon">🔒</span>
-              <input id="password" type="password" minlength="8" placeholder="••••••••" autocomplete="current-password" aria-required="true" />
-            </div>
-            <div id="passwordError" class="field-error" aria-live="polite"></div>
-          </div>
+    <div class="input">
+      <input id="username" type="text" placeholder="Email address">
+    </div>
 
-          <div class="row">
-            <label class="checkbox"><input id="remember" type="checkbox" /> Remember me</label>
-            <a class="link" href="#">Forgot?</a>
-          </div>
+    <div class="input password-box">
+      <input id="password" type="password" placeholder="Password">
+      <i id="eyeIcon" class="fa fa-eye" onclick="togglePassword()"></i>
+    </div>
 
-          <div id="error" class="error" role="alert">Please enter both email and password.</div>
+    <div class="actions">
+      <a href="#" onclick="forgotPassword()">Forgot password?</a>
+    </div>
 
-          <button type="submit" id="loginBtn" class="btn" aria-label="Login" disabled>Login</button>
-          <!-- server/submission errors show here (under the button) -->
-          <div id="submitError" class="field-error" role="alert" aria-live="polite"></div>
+    <button class="login-btn" onclick="login()">Log in</button>
 
-          <div class="note">Or continue with</div>
-          <div class="socials" aria-hidden="false">
-            <button type="button" title="Continue with Google">G</button>
-            <button type="button" title="Continue with Facebook">f</button>
-            <button type="button" title="Continue with Apple"></button>
-          </div>
-        </form>
+    <div class="divider">or</div>
 
-        <div class="mini" style="margin-top:12px;color:var(--muted)">By signing in you agree to the <a class="link" href="#">terms</a> and <a class="link" href="#">privacy policy</a>.</div>
-        <div class="mini" style="margin-top:8px"><strong>New here?</strong> <a class="link" href="#">Create account</a></div>
-      </div>
-    </section>
-
-    <aside class="side" aria-hidden="false">
-      <div style="display:flex;align-items:center;gap:14px;">
-        <div class="logo" aria-hidden="true">🌿</div>
-        <div>
-          <div class="hero-title">Campus Waste</div>
-          <div class="hero-sub">Small acts on campus. Big impact for our planet — learn, sort, recycle.</div>
-        </div>
-      </div>
-
-      <div class="sparkles" aria-hidden="true">
-        <div class="spark">Student-friendly</div>
-        <div class="spark">AI Scanner</div>
-        <div class="spark">Bin Locator</div>
-      </div>
-
-      <svg class="leaf-ill leaf-grow" width="280" height="160" viewBox="0 0 360 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="0" y="0" width="360" height="200" rx="12" fill="transparent"/>
-        <path d="M32 160c28-44 92-78 172-48 48 18 84 42 104 74-58 16-132 0-204-26z" fill="#e6f7ee"/>
-        <g transform="translate(30,20)">
-          <path d="M90 20c18-12 46-18 74 0-24 12-36 28-48 44-14-12-24-36-26-44z" fill="#dff3e6"/>
-          <circle cx="28" cy="118" r="28" fill="#e8f7ec"/>
-        </g>
+    <!-- GOOGLE BUTTON WITH INLINE SVG -->
+    <button class="social" onclick="loginGoogle()">
+      <svg class="google-icon" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.6 0 6.1 1.6 7.5 2.9l5.1-5.1C33.4 4.1 29.1 2 24 2 14.9 2 7.3 7.8 4.7 15.8l6.9 5.3C13.2 14.3 18.1 9.5 24 9.5z"/>
+        <path fill="#34A853" d="M46.1 24.5c0-1.6-.1-2.8-.4-4H24v7.7h12.7c-.6 3-2.4 5.6-5.1 7.3l7.8 6C43.8 37.4 46.1 31.5 46.1 24.5z"/>
+        <path fill="#4A90E2" d="M11.6 28.1c-.4-1.2-.7-2.5-.7-3.9s.3-2.7.7-3.9l-6.9-5.3C3.3 18.1 2.5 21 2.5 24.2s.8 6.1 2.2 8.8l6.9-4.9z"/>
+        <path fill="#FBBC05" d="M24 46c6.5 0 12-2.1 16-5.7l-7.8-6c-2.1 1.4-4.8 2.2-8.2 2.2-5.9 0-10.8-4.8-12.6-11.3l-6.9 4.9C7.3 40.2 14.9 46 24 46z"/>
       </svg>
+      Log in with Google
+    </button>
 
-    </aside>
+    <!-- FACEBOOK -->
+    <button class="social" onclick="loginFacebook()">
+      <i class="fa-brands fa-facebook" style="color:#1877F2"></i>
+      Log in with Facebook
+    </button>
+
+    <div class="terms">
+      By using our service, you agree to the terms and conditions.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-item" onclick="toggleFooter(this)">
+    <div class="footer-header">Help <i class="fa fa-chevron-down"></i></div>
+    <div class="footer-content">FAQs, guides, and troubleshooting information.</div>
   </div>
 
-  <script>
-  (() => {
-    const form = document.getElementById('loginForm');
-    const emailEl = document.getElementById('userId');
-    const passEl = document.getElementById('password');
-    const emailError = document.getElementById('emailError');
-    const passError = document.getElementById('passwordError');
-    const submitError = document.getElementById('submitError');
-    const loginBtn = document.getElementById('loginBtn');
+  <div class="footer-item" onclick="toggleFooter(this)">
+    <div class="footer-header">Community <i class="fa fa-chevron-down"></i></div>
+    <div class="footer-content">Join discussions and campus sustainability events.</div>
+  </div>
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  <div class="footer-item" onclick="toggleFooter(this)">
+    <div class="footer-header">Support <i class="fa fa-chevron-down"></i></div>
+    <div class="footer-content">Contact our support team for assistance.</div>
+  </div>
 
-    function validateEmail(v) {
-      if (!v) return ['Fill the details'];
-      if (!v.includes('@')) return ['Must contain "@"'];
-      if (v.includes('@') && !emailPattern.test(v)) return ['Enter a valid email (example: name@campus.edu)'];
-      return []; // valid
-    }
+  <div class="footer-bottom">© EcoLite — All rights reserved</div>
+</footer>
 
-    function validatePassword(v) {
-      if (!v) return ['Fill the details'];
-      const msgs = [];
-      if (v.length < 8) msgs.push('Must be at least 8 characters');
-      if (!/[A-Z]/.test(v)) msgs.push('Must include an uppercase letter');
-      if (!/[0-9]/.test(v)) msgs.push('Must include a number');
-      if (!/[!@#$%^&*()_\-+=[\]{};:\'",.<>\/?\\|`~]/.test(v)) msgs.push('Must include a special character');
-      return msgs; // empty array means valid
-    }
+<script>
+function togglePassword(){
+  const pass = document.getElementById("password");
+  const eye = document.getElementById("eyeIcon");
 
-    function showFieldError(elInput, elError, msgs) {
-      if (!msgs || msgs.length === 0) {
-        elError.textContent = '';
-        elError.style.display = 'none';
-        elInput.parentElement.classList.remove('invalid');
-        elInput.removeAttribute('aria-invalid');
-        return;
-      }
+  if(pass.type === "password"){
+    pass.type = "text";
+    eye.classList.replace("fa-eye","fa-eye-slash");
+  }else{
+    pass.type = "password";
+    eye.classList.replace("fa-eye-slash","fa-eye");
+  }
+}
 
-      elError.innerHTML = '';
-      const ul = document.createElement('ul');
-      ul.style.margin = '0';
-      ul.style.paddingLeft = '18px';
-      ul.style.marginTop = '4px';
-      msgs.forEach(m => {
-        const li = document.createElement('li');
-        li.textContent = m;
-        li.style.marginBottom = '4px';
-        ul.appendChild(li);
-      });
-      elError.appendChild(ul);
-      elError.style.display = 'block';
-      elInput.parentElement.classList.add('invalid');
-      elInput.setAttribute('aria-invalid', 'true');
-    }
+function login(){
+  const u = document.getElementById("username").value;
+  const p = document.getElementById("password").value;
+  if(u==="" || p===""){ alert("Please enter username and password"); return; }
+  window.location.href="dashboard.html";
+}
 
-    function updateSubmitState() {
-      const emailMsgs = validateEmail(emailEl.value.trim());
-      const passMsgs = validatePassword(passEl.value);
-      const ok = emailMsgs.length === 0 && passMsgs.length === 0;
-      loginBtn.disabled = !ok;
-      if (ok) submitError.style.display = 'none';
-    }
-    
-    emailEl.addEventListener('input', () => {
-      showFieldError(emailEl, emailError, validateEmail(emailEl.value.trim()));
-      updateSubmitState();
-      submitError.style.display = 'none';
-    });
-    passEl.addEventListener('input', () => {
-      showFieldError(passEl, passError, validatePassword(passEl.value));
-      updateSubmitState();
-      submitError.style.display = 'none';
-    });
+function forgotPassword(){
+  alert("Password reset link will be sent to your email.");
+}
 
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      submitError.style.display = 'none';
-      
-      // double-check validity before submitting
-      const emailMsgs = validateEmail(emailEl.value.trim());
-      const passMsgs = validatePassword(passEl.value);
-      if (emailMsgs.length || passMsgs.length) {
-        // keep button disabled and show contextual messages (already shown)
-        loginBtn.disabled = true;
-        return;
-      }
+function loginGoogle(){
+  window.open("https://accounts.google.com/","_blank");
+}
 
-      const identifier = emailEl.value.trim();
-      const password = passEl.value;
+function loginFacebook(){
+  window.open("https://www.facebook.com/login/","_blank");
+}
 
-      try {
-        const res = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ identifier, password })
-        });
+function toggleFooter(el){
+  const c = el.querySelector(".footer-content");
+  c.style.display = c.style.display==="block" ? "none" : "block";
+}
+</script>
 
-        if (!res.ok) {
-          submitError.textContent = 'Invalid credentials or server error.';
-          submitError.style.display = 'block';
-          loginBtn.disabled = false; // allow retry after server response
-          return;
-        }
-        const data = await res.json();
-        if (data.success) {
-          const redirect = (data.redirect && data.redirect.startsWith('/')) ? data.redirect : '/dashboard.html';
-          window.location.href = redirect;
-        } else {
-          submitError.textContent = 'Invalid credentials.';
-          submitError.style.display = 'block';
-          loginBtn.disabled = false;
-        }
-      } catch (err) {
-        console.error(err);
-        submitError.textContent = 'Network error. Try again.';
-        submitError.style.display = 'block';
-        loginBtn.disabled = false;
-      }
-    });
-
-    // initialize button state
-    updateSubmitState();
-  })();
-  </script>
 </body>
 </html>
