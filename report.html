@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Issue - Campus Waste Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 56rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .header-icon-container {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #166534;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .intro-text {
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .form-container {
+                padding: 2rem;
+            }
+        }
+
+        .form-section {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: #111827;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Issue Type Grid */
+        .issue-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+            .issue-type-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .issue-type-btn {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .issue-type-btn:hover {
+            border-color: #d1d5db;
+        }
+
+        .issue-type-btn.selected {
+            border-color: #16a34a;
+            background: #f0fdf4;
+        }
+
+        .issue-type-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .issue-type-label {
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        /* Input Fields */
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            stroke: #9ca3af;
+        }
+
+        .textarea-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 0.75rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            stroke: #9ca3af;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            padding-left: 2.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: #16a34a;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        /* Photo Upload */
+        .photo-upload {
+            width: 100%;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            text-align: center;
+        }
+
+        .photo-upload:hover {
+            border-color: #9ca3af;
+        }
+
+        .photo-upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .photo-upload-icon {
+            width: 2rem;
+            height: 2rem;
+            stroke: #9ca3af;
+        }
+
+        .photo-upload-text {
+            color: #4b5563;
+        }
+
+        .photo-upload-hint {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #eff6ff;
+            border: 2px solid #bfdbfe;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: #16a34a;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: #15803d;
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .submit-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            stroke: white;
+        }
+
+        /* Help Section */
+        .help-section {
+            margin-top: 1.5rem;
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .help-section h3 {
+            color: #166534;
+            margin-bottom: 0.75rem;
+        }
+
+        .help-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .help-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            color: #374151;
+        }
+
+        .help-bullet {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        /* Back Link */
+        .back-link {
+            margin-top: 2rem;
+        }
+
+        .back-link button {
+            background: none;
+            border: none;
+            color: #16a34a;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .back-link button:hover {
+            color: #15803d;
+        }
+
+        /* Success Modal */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 50;
+        }
+
+        .success-overlay.active {
+            display: flex;
+        }
+
+        .success-modal {
+            max-width: 28rem;
+            width: 100%;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .success-icon-container {
+            width: 4rem;
+            height: 4rem;
+            background: #dcfce7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .success-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            stroke: #16a34a;
+        }
+
+        .success-modal h2 {
+            margin-bottom: 0.75rem;
+        }
+
+        .success-modal p {
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+        }
+
+        .return-btn {
+            width: 100%;
+            background: #16a34a;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .return-btn:hover {
+            background: #15803d;
+        }
+
+        /* Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .icon-white {
+            stroke: white;
+        }
+
+        .icon-gray {
+            stroke: #4b5563;
+        }
+
+        /* Hidden file input */
+        #photo-input {
+            display: none;
+        }
+
+        .uploaded-photo {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: #166534;
+            display: none;
+        }
+
+        .uploaded-photo.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <button class="back-btn" onclick="goBack()">
+                    <svg class="icon icon-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="header-icon-container">
+                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <h1>Report Issue</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="intro-text">
+                <p>Help us maintain a cleaner campus. Report overflowing bins, damaged equipment, or incorrect waste detection.</p>
+            </div>
+
+            <!-- Report Form -->
+            <div class="form-container">
+                <form id="report-form" onsubmit="handleSubmit(event)">
+                    <!-- Issue Type -->
+                    <div class="form-section">
+                        <label>What type of issue are you reporting? *</label>
+                        <div class="issue-type-grid">
+                            <button type="button" class="issue-type-btn" data-value="overflowing" onclick="selectIssueType('overflowing')">
+                                <div class="issue-type-icon">🗑️</div>
+                                <p class="issue-type-label">Overflowing Bin</p>
+                            </button>
+                            <button type="button" class="issue-type-btn" data-value="damaged" onclick="selectIssueType('damaged')">
+                                <div class="issue-type-icon">⚠️</div>
+                                <p class="issue-type-label">Damaged Bin</p>
+                            </button>
+                            <button type="button" class="issue-type-btn" data-value="misplaced" onclick="selectIssueType('misplaced')">
+                                <div class="issue-type-icon">🚫</div>
+                                <p class="issue-type-label">Misplaced Waste</p>
+                            </button>
+                            <button type="button" class="issue-type-btn" data-value="wrong-detection" onclick="selectIssueType('wrong-detection')">
+                                <div class="issue-type-icon">🔍</div>
+                                <p class="issue-type-label">Wrong Detection</p>
+                            </button>
+                            <button type="button" class="issue-type-btn" data-value="missing-bin" onclick="selectIssueType('missing-bin')">
+                                <div class="issue-type-icon">❓</div>
+                                <p class="issue-type-label">Missing Bin</p>
+                            </button>
+                            <button type="button" class="issue-type-btn" data-value="other" onclick="selectIssueType('other')">
+                                <div class="issue-type-icon">💬</div>
+                                <p class="issue-type-label">Other Issue</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="form-section">
+                        <label for="location">Location *</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <select id="location" required>
+                                <option value="">Select location</option>
+                                <option value="Library Entrance">Library Entrance</option>
+                                <option value="Cafeteria">Cafeteria</option>
+                                <option value="Tech Building">Tech Building</option>
+                                <option value="Main Gate">Main Gate</option>
+                                <option value="Sports Complex">Sports Complex</option>
+                                <option value="Student Center">Student Center</option>
+                                <option value="Parking Lot A">Parking Lot A</option>
+                                <option value="Admin Building">Admin Building</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-section">
+                        <label for="description">Description *</label>
+                        <div class="input-wrapper">
+                            <svg class="textarea-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <textarea id="description" rows="5" placeholder="Please provide details about the issue..." required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Photo Upload -->
+                    <div class="form-section">
+                        <label>Add Photo (Optional)</label>
+                        <input type="file" id="photo-input" accept="image/*" onchange="handlePhotoUpload(event)">
+                        <label for="photo-input" class="photo-upload">
+                            <div class="photo-upload-content">
+                                <svg class="photo-upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <p class="photo-upload-text">Click to upload photo</p>
+                                <p class="photo-upload-hint">Helps us understand the issue better</p>
+                            </div>
+                        </label>
+                        <div id="uploaded-photo" class="uploaded-photo"></div>
+                    </div>
+
+                    <!-- Info Box -->
+                    <div class="form-section">
+                        <div class="info-box">
+                            <p><strong>Note:</strong> We'll use your account information to follow up if needed. Your report will be reviewed within 24 hours.</p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn" id="submit-btn" disabled>
+                        <svg class="submit-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                        </svg>
+                        <span>Submit Report</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Help Section -->
+            <div class="help-section">
+                <h3>🌟 Why Report Issues?</h3>
+                <ul class="help-list">
+                    <li class="help-item">
+                        <span class="help-bullet">•</span>
+                        <span>Help maintain clean and functional waste disposal facilities</span>
+                    </li>
+                    <li class="help-item">
+                        <span class="help-bullet">•</span>
+                        <span>Improve the accuracy of our waste detection system</span>
+                    </li>
+                    <li class="help-item">
+                        <span class="help-bullet">•</span>
+                        <span>Contribute to a more sustainable campus environment</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Back Link -->
+            <div class="back-link">
+                <button onclick="goBack()">← Back to Dashboard</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="success-overlay" class="success-overlay">
+        <div class="success-modal">
+            <div class="success-icon-container">
+                <svg class="success-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h2>Report Submitted!</h2>
+            <p>Thank you for helping keep our campus clean. Our team will address this issue soon.</p>
+            <button class="return-btn" onclick="returnToDashboard()">Return to Dashboard</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedIssueType = '';
+
+        function selectIssueType(type) {
+            selectedIssueType = type;
+            
+            // Update button styles
+            const buttons = document.querySelectorAll('.issue-type-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-value') === type) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
+            });
+
+            // Check form validity
+            checkFormValidity();
+        }
+
+        function checkFormValidity() {
+            const location = document.getElementById('location').value;
+            const description = document.getElementById('description').value;
+            const submitBtn = document.getElementById('submit-btn');
+
+            if (selectedIssueType && location && description) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const uploadedPhotoDiv = document.getElementById('uploaded-photo');
+                uploadedPhotoDiv.textContent = `✓ Photo uploaded: ${file.name}`;
+                uploadedPhotoDiv.classList.add('active');
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const location = document.getElementById('location').value;
+            const description = document.getElementById('description').value;
+
+            if (!selectedIssueType || !location || !description) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Show success modal
+            document.getElementById('success-overlay').classList.add('active');
+
+            // Auto-redirect after 3 seconds
+            setTimeout(() => {
+                returnToDashboard();
+            }, 3000);
+        }
+
+        function returnToDashboard() {
+            window.history.back();
+            // Or: window.location.href = 'dashboard.html';
+        }
+
+        function goBack() {
+            window.history.back();
+            // Or: window.location.href = 'dashboard.html';
+        }
+
+        // Add event listeners for form validation
+        document.getElementById('location').addEventListener('change', checkFormValidity);
+        document.getElementById('description').addEventListener('input', checkFormValidity);
+    </script>
+</body>
+</html>

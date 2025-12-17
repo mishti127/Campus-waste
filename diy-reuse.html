@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Waste Reuse - Campus Waste Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .header-icon-container {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #166534;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-emoji {
+            font-size: 2.5rem;
+        }
+
+        .hero-section h2 {
+            color: white;
+        }
+
+        .hero-description {
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 48rem;
+        }
+
+        .decorative-circle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .circle-1 {
+            width: 15rem;
+            height: 15rem;
+            top: -5rem;
+            right: -5rem;
+        }
+
+        .circle-2 {
+            width: 10rem;
+            height: 10rem;
+            bottom: -3rem;
+            right: 8rem;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-title {
+            color: #111827;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .filter-btn.active {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        /* Project Grid */
+        .projects-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Project Card */
+        .project-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-0.25rem);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card.hidden {
+            display: none;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 12rem;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .difficulty-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .project-content {
+            padding: 1.25rem;
+        }
+
+        .project-header {
+            margin-bottom: 0.75rem;
+        }
+
+        .project-title {
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-category {
+            font-size: 0.875rem;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .project-description {
+            color: #4b5563;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-view {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-view:hover {
+            background: #059669;
+        }
+
+        .btn-youtube {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+
+        .btn-youtube:hover {
+            background: #dc2626;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 50;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            max-width: 48rem;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            margin: 2rem auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-close {
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            background: #f3f4f6;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #e5e7eb;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 16rem;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .materials-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: #111827;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .materials-list {
+            list-style: none;
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .material-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: #f9fafb;
+            border-radius: 0.5rem;
+        }
+
+        .material-icon {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .steps-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .step-number {
+            width: 2rem;
+            height: 2rem;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .impact-section {
+            background: linear-gradient(to right, #dcfce7, #d1fae5);
+            border: 2px solid #86efac;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-title {
+            color: #166534;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-stats {
+            display: grid;
+            gap: 0.5rem;
+            color: #166534;
+            font-size: 0.875rem;
+        }
+
+        .video-section {
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+            border-radius: 0.75rem;
+            padding: 1rem;
+        }
+
+        .video-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .video-button:hover {
+            background: #dc2626;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-radius: 0.75rem;
+        }
+
+        .stat-emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #166534;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #4b5563;
+        }
+
+        /* Back Button */
+        .back-button-section {
+            margin-top: 2rem;
+        }
+
+        .back-button {
+            background: #16a34a;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .back-button:hover {
+            background: #15803d;
+        }
+
+        /* Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .icon-white {
+            stroke: white;
+        }
+
+        .icon-gray {
+            stroke: #4b5563;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <button class="back-btn" onclick="goBack()">
+                    <svg class="icon icon-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="header-icon-container">
+                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <h1>DIY Waste Reuse</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-title">
+                        <span class="hero-emoji">♻️</span>
+                        <h2>Turn Waste into Wonder!</h2>
+                    </div>
+                    <p class="hero-description">
+                        Discover creative ways to reuse waste materials. From plastic bottles to cardboard boxes, learn how to transform trash into useful items with our easy DIY guides!
+                    </p>
+                </div>
+                <div class="decorative-circle circle-1"></div>
+                <div class="decorative-circle circle-2"></div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-emoji">🎨</div>
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">DIY Projects</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">♻️</div>
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Waste Types</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">🌍</div>
+                        <div class="stat-value">500kg</div>
+                        <div class="stat-label">Waste Saved</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">👥</div>
+                        <div class="stat-value">1.2k</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <h3 class="filter-title">
+                    <svg style="width: 1.25rem; height: 1.25rem; stroke: #4b5563;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    Filter by Material
+                </h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterProjects('all')">All Projects</button>
+                    <button class="filter-btn" onclick="filterProjects('plastic')">🍾 Plastic Bottles</button>
+                    <button class="filter-btn" onclick="filterProjects('paper')">📄 Paper</button>
+                    <button class="filter-btn" onclick="filterProjects('cardboard')">📦 Cardboard</button>
+                    <button class="filter-btn" onclick="filterProjects('glass')">🍶 Glass</button>
+                    <button class="filter-btn" onclick="filterProjects('metal')">🥫 Metal Cans</button>
+                    <button class="filter-btn" onclick="filterProjects('fabric')">👕 Old Clothes</button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projects will be dynamically loaded here -->
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-button-section">
+                <button class="back-button" onclick="goBack()">← Back to Dashboard</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Project Detail Modal -->
+    <div id="project-modal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 id="modal-title">Project Title</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <svg style="width: 1.25rem; height: 1.25rem; stroke: #4b5563;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Project data
+        const projects = [
+            {
+                id: 1,
+                title: 'Plant Pot from Plastic Bottle',
+                category: 'plastic',
+                emoji: '🌱',
+                difficulty: 'easy',
+                time: '15 min',
+                description: 'Transform plastic bottles into beautiful planters for your desk or dorm room.',
+                materials: ['1 plastic bottle (500ml or 1L)', 'Scissors', 'Marker', 'Soil', 'Small plant or seeds', 'Paint (optional)'],
+                steps: [
+                    { title: 'Cut the bottle', description: 'Cut the plastic bottle in half. You can use the top or bottom part.' },
+                    { title: 'Create drainage holes', description: 'Poke 3-4 small holes at the bottom for water drainage.' },
+                    { title: 'Decorate (optional)', description: 'Paint or decorate the outside with markers or stickers.' },
+                    { title: 'Add soil', description: 'Fill the bottle with potting soil, leaving some space at the top.' },
+                    { title: 'Plant it!', description: 'Add your plant or seeds and water gently.' }
+                ],
+                impact: ['Saves 1 plastic bottle from landfill', 'Reduces plastic waste by 50g', 'Creates green space in your room'],
+                youtube: 'https://www.youtube.com/results?search_query=plastic+bottle+plant+pot+diy'
+            },
+            {
+                id: 2,
+                title: 'Desk Organizer from Cardboard',
+                category: 'cardboard',
+                emoji: '📝',
+                difficulty: 'medium',
+                time: '45 min',
+                description: 'Create a multi-compartment desk organizer to keep your stationery neat.',
+                materials: ['Cardboard box', 'Ruler', 'Pencil', 'Scissors/Box cutter', 'Glue', 'Decorative paper or paint'],
+                steps: [
+                    { title: 'Plan your design', description: 'Sketch the compartments you need (pens, papers, phone, etc.).' },
+                    { title: 'Cut the base', description: 'Cut a rectangular base from the cardboard.' },
+                    { title: 'Create dividers', description: 'Cut cardboard strips for dividers and vertical holders.' },
+                    { title: 'Assemble', description: 'Glue all pieces together, creating separate sections.' },
+                    { title: 'Decorate', description: 'Cover with decorative paper or paint to match your style.' },
+                    { title: 'Let it dry', description: 'Allow 24 hours for glue to dry completely.' }
+                ],
+                impact: ['Reuses 1 cardboard box', 'Saves $15 on buying organizer', 'Reduces paper waste by 200g'],
+                youtube: 'https://www.youtube.com/results?search_query=cardboard+desk+organizer+diy'
+            },
+            {
+                id: 3,
+                title: 'Phone Stand from Bottle Caps',
+                category: 'plastic',
+                emoji: '📱',
+                difficulty: 'easy',
+                time: '10 min',
+                description: 'Quick phone stand using bottle caps and tape - perfect for video calls!',
+                materials: ['4 plastic bottle caps', 'Strong tape or hot glue', 'Cardboard piece (optional)'],
+                steps: [
+                    { title: 'Arrange caps', description: 'Place 2 caps side by side for the base, 2 for the back support.' },
+                    { title: 'Secure with tape', description: 'Use strong tape or hot glue to attach the caps together.' },
+                    { title: 'Create angle', description: 'Position back caps to create a 60-degree viewing angle.' },
+                    { title: 'Test stability', description: 'Place your phone and adjust if needed.' }
+                ],
+                impact: ['Reuses 4 bottle caps', 'Free alternative to $10 phone stand', 'Prevents small plastic waste'],
+                youtube: 'https://www.youtube.com/results?search_query=bottle+cap+phone+stand+diy'
+            },
+            {
+                id: 4,
+                title: 'Pencil Holder from Tin Cans',
+                category: 'metal',
+                emoji: '✏️',
+                difficulty: 'easy',
+                time: '20 min',
+                description: 'Upcycle tin cans into stylish pencil holders for your workspace.',
+                materials: ['Clean tin cans', 'Sandpaper', 'Paint or decorative paper', 'Glue', 'Ribbons (optional)'],
+                steps: [
+                    { title: 'Clean the can', description: 'Wash thoroughly and remove labels. Dry completely.' },
+                    { title: 'Sand edges', description: 'Use sandpaper to smooth any sharp edges for safety.' },
+                    { title: 'Decorate', description: 'Paint the can or wrap with decorative paper and glue.' },
+                    { title: 'Add embellishments', description: 'Attach ribbons, buttons, or other decorations.' },
+                    { title: 'Fill it up', description: 'Add your pens, pencils, and markers!' }
+                ],
+                impact: ['Saves 1 metal can from recycling', 'Reduces metal waste by 100g', 'Creates functional desk item'],
+                youtube: 'https://www.youtube.com/results?search_query=tin+can+pencil+holder+diy'
+            },
+            {
+                id: 5,
+                title: 'Bookmark from Old Cards',
+                category: 'paper',
+                emoji: '📖',
+                difficulty: 'easy',
+                time: '5 min',
+                description: 'Turn old greeting cards or cardboard into beautiful bookmarks.',
+                materials: ['Old greeting cards or thick paper', 'Scissors', 'Ruler', 'Hole punch', 'Ribbon or yarn'],
+                steps: [
+                    { title: 'Cut to size', description: 'Cut a strip 2 inches wide and 6 inches long from the card.' },
+                    { title: 'Round corners', description: 'Optionally round the corners for a polished look.' },
+                    { title: 'Punch hole', description: 'Make a hole at the top center of the bookmark.' },
+                    { title: 'Add ribbon', description: 'Thread ribbon or yarn through the hole and tie.' },
+                    { title: 'Personalize', description: 'Add stickers or drawings to make it unique!' }
+                ],
+                impact: ['Reuses 1 greeting card', 'Saves paper waste', 'Creates personalized gift'],
+                youtube: 'https://www.youtube.com/results?search_query=greeting+card+bookmark+diy'
+            },
+            {
+                id: 6,
+                title: 'Bird Feeder from Plastic Bottle',
+                category: 'plastic',
+                emoji: '🐦',
+                difficulty: 'medium',
+                time: '30 min',
+                description: 'Create an eco-friendly bird feeder to support local wildlife.',
+                materials: ['Large plastic bottle', 'Wooden spoons (2)', 'Box cutter', 'String or wire', 'Bird seeds'],
+                steps: [
+                    { title: 'Make holes', description: 'Cut 4 holes on opposite sides of the bottle for spoons.' },
+                    { title: 'Insert spoons', description: 'Push wooden spoons through holes - these will hold the seeds.' },
+                    { title: 'Create perches', description: 'The spoon handles serve as perches for birds.' },
+                    { title: 'Add hanging string', description: 'Attach string around the bottle neck for hanging.' },
+                    { title: 'Fill with seeds', description: 'Pour bird seeds through the top opening.' },
+                    { title: 'Hang outside', description: 'Find a good spot in a tree or balcony.' }
+                ],
+                impact: ['Saves 1 large plastic bottle', 'Supports local bird population', 'Reduces plastic by 100g'],
+                youtube: 'https://www.youtube.com/results?search_query=plastic+bottle+bird+feeder+diy'
+            },
+            {
+                id: 7,
+                title: 'Tote Bag from Old T-Shirt',
+                category: 'fabric',
+                emoji: '👜',
+                difficulty: 'easy',
+                time: '15 min',
+                description: 'No-sew tote bag from an old t-shirt - perfect for grocery shopping!',
+                materials: ['Old t-shirt', 'Scissors', 'Ruler (optional)'],
+                steps: [
+                    { title: 'Cut sleeves', description: 'Cut off both sleeves along the seam.' },
+                    { title: 'Cut neckline', description: 'Cut a wider neckline to create the bag opening.' },
+                    { title: 'Mark fringe', description: 'Mark 3-inch deep cuts at the bottom, 1 inch apart.' },
+                    { title: 'Cut fringe', description: 'Cut the fringe strips through both layers.' },
+                    { title: 'Tie knots', description: 'Tie each front strip to the back strip in double knots.' },
+                    { title: 'Trim excess', description: 'Cut off any excess fabric from knots.' }
+                ],
+                impact: ['Reuses 1 old t-shirt', 'Replaces plastic shopping bags', 'Reduces textile waste by 150g'],
+                youtube: 'https://www.youtube.com/results?search_query=t-shirt+tote+bag+no+sew'
+            },
+            {
+                id: 8,
+                title: 'Candle Holder from Glass Jars',
+                category: 'glass',
+                emoji: '🕯️',
+                difficulty: 'easy',
+                time: '20 min',
+                description: 'Transform glass jars into beautiful decorative candle holders.',
+                materials: ['Glass jars (any size)', 'Tea lights or small candles', 'Decorative items (twine, lace, paint)', 'Glue'],
+                steps: [
+                    { title: 'Clean jar', description: 'Remove labels and wash jar thoroughly. Dry completely.' },
+                    { title: 'Decorate outside', description: 'Wrap with twine, lace, or paint designs on the glass.' },
+                    { title: 'Add embellishments', description: 'Glue on beads, buttons, or other decorations.' },
+                    { title: 'Place candle', description: 'Put a tea light or small candle inside the jar.' },
+                    { title: 'Safety check', description: 'Ensure the jar is stable and never leave candles unattended.' }
+                ],
+                impact: ['Saves 1 glass jar from recycling', 'Creates mood lighting', 'Reduces glass waste by 150g'],
+                youtube: 'https://www.youtube.com/results?search_query=glass+jar+candle+holder+diy'
+            },
+            {
+                id: 9,
+                title: 'Wall Art from Cardboard',
+                category: 'cardboard',
+                emoji: '🎨',
+                difficulty: 'medium',
+                time: '60 min',
+                description: 'Create stunning 3D wall art using cardboard layers.',
+                materials: ['Cardboard sheets', 'Box cutter', 'Pencil', 'Paint', 'Glue gun', 'Frame or backing board'],
+                steps: [
+                    { title: 'Design pattern', description: 'Sketch your design - geometric shapes work great!' },
+                    { title: 'Cut layers', description: 'Cut multiple identical shapes in different sizes.' },
+                    { title: 'Paint pieces', description: 'Paint each layer in coordinating colors.' },
+                    { title: 'Stack and glue', description: 'Layer pieces from largest to smallest, gluing each layer.' },
+                    { title: 'Mount on backing', description: 'Attach the finished piece to a backing board.' },
+                    { title: 'Hang it up', description: 'Display your unique artwork!' }
+                ],
+                impact: ['Reuses cardboard scraps', 'Creates custom home decor', 'Saves money on wall art'],
+                youtube: 'https://www.youtube.com/results?search_query=cardboard+3d+wall+art+diy'
+            },
+            {
+                id: 10,
+                title: 'Cable Organizer from Toilet Rolls',
+                category: 'paper',
+                emoji: '🔌',
+                difficulty: 'easy',
+                time: '10 min',
+                description: 'Keep cables tangle-free using toilet paper or paper towel rolls.',
+                materials: ['Toilet paper rolls or paper towel rolls', 'Shoe box (optional)', 'Decorative paper (optional)'],
+                steps: [
+                    { title: 'Collect rolls', description: 'Save up toilet paper or paper towel rolls.' },
+                    { title: 'Decorate (optional)', description: 'Cover with decorative paper or paint.' },
+                    { title: 'Arrange in box', description: 'Stand rolls upright in a shoe box or drawer.' },
+                    { title: 'Label rolls', description: 'Write cable names on each roll (phone, laptop, etc.).' },
+                    { title: 'Store cables', description: 'Coil each cable and place in its designated roll.' }
+                ],
+                impact: ['Reuses paper rolls', 'Organizes electronic cables', 'Prevents cable damage'],
+                youtube: 'https://www.youtube.com/results?search_query=toilet+paper+roll+cable+organizer'
+            },
+            {
+                id: 11,
+                title: 'Mini Greenhouse from Plastic Bottles',
+                category: 'plastic',
+                emoji: '🌿',
+                difficulty: 'hard',
+                time: '90 min',
+                description: 'Build a mini greenhouse for growing seedlings using plastic bottles.',
+                materials: ['Multiple plastic bottles (clear)', 'Box cutter', 'Tape or glue', 'Wooden frame (optional)', 'Soil and seeds'],
+                steps: [
+                    { title: 'Cut bottles', description: 'Cut bottles into flat panels, removing tops and bottoms.' },
+                    { title: 'Create frame', description: 'Build a small wooden frame or use existing structure.' },
+                    { title: 'Attach panels', description: 'Tape or glue plastic panels to frame, creating walls.' },
+                    { title: 'Make roof', description: 'Angle panels to create a slanted roof for water runoff.' },
+                    { title: 'Add door', description: 'Leave one panel removable for access.' },
+                    { title: 'Plant seeds', description: 'Use for starting seeds in early spring!' }
+                ],
+                impact: ['Reuses 10+ plastic bottles', 'Extends growing season', 'Reduces plastic waste by 500g'],
+                youtube: 'https://www.youtube.com/results?search_query=plastic+bottle+mini+greenhouse'
+            },
+            {
+                id: 12,
+                title: 'Coasters from Cardboard & Fabric',
+                category: 'cardboard',
+                emoji: '☕',
+                difficulty: 'medium',
+                time: '40 min',
+                description: 'Make stylish drink coasters from cardboard and fabric scraps.',
+                materials: ['Cardboard', 'Fabric scraps', 'Scissors', 'Glue', 'Mod Podge or clear varnish'],
+                steps: [
+                    { title: 'Cut cardboard circles', description: 'Cut 4-inch diameter circles from cardboard (2 per coaster).' },
+                    { title: 'Glue layers', description: 'Stack and glue 2 circles together for thickness.' },
+                    { title: 'Cut fabric', description: 'Cut fabric slightly larger than cardboard circles.' },
+                    { title: 'Apply fabric', description: 'Glue fabric to cardboard, folding edges underneath.' },
+                    { title: 'Seal surface', description: 'Apply Mod Podge or varnish to waterproof the coaster.' },
+                    { title: 'Let dry', description: 'Allow 24 hours to dry before use.' }
+                ],
+                impact: ['Reuses cardboard and fabric scraps', 'Creates functional home items', 'Prevents water rings on furniture'],
+                youtube: 'https://www.youtube.com/results?search_query=cardboard+fabric+coasters+diy'
+            }
+        ];
+
+        let currentCategory = 'all';
+
+        // Load projects on page load
+        window.addEventListener('DOMContentLoaded', loadProjects);
+
+        function loadProjects() {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = '';
+
+            projects.forEach(project => {
+                const card = createProjectCard(project);
+                grid.appendChild(card);
+            });
+        }
+
+        function createProjectCard(project) {
+            const div = document.createElement('div');
+            div.className = 'project-card';
+            div.setAttribute('data-category', project.category);
+
+            const gradients = {
+                plastic: 'linear-gradient(135deg, #dbeafe, #bfdbfe)',
+                paper: 'linear-gradient(135deg, #fef3c7, #fde68a)',
+                cardboard: 'linear-gradient(135deg, #fed7aa, #fdba74)',
+                glass: 'linear-gradient(135deg, #e0e7ff, #c7d2fe)',
+                metal: 'linear-gradient(135deg, #e5e7eb, #d1d5db)',
+                fabric: 'linear-gradient(135deg, #fce7f3, #fbcfe8)'
+            };
+
+            div.innerHTML = `
+                <div class="project-image" style="background: ${gradients[project.category] || gradients.plastic}">
+                    <span>${project.emoji}</span>
+                    <span class="difficulty-badge difficulty-${project.difficulty}">${project.difficulty}</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3 class="project-title">${project.title}</h3>
+                        <p class="project-category">
+                            <span>🏷️</span>
+                            <span>${project.category.charAt(0).toUpperCase() + project.category.slice(1)}</span>
+                        </p>
+                    </div>
+                    <p class="project-description">${project.description}</p>
+                    <div class="project-meta">
+                        <span class="meta-item">
+                            <span>⏱️</span>
+                            <span>${project.time}</span>
+                        </span>
+                        <span class="meta-item">
+                            <span>📋</span>
+                            <span>${project.materials.length} items</span>
+                        </span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-view" onclick="viewProject(${project.id})">View Guide</button>
+                        <button class="btn-youtube" onclick="openYouTube('${project.youtube}')">
+                            ▶️ Watch
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return div;
+        }
+
+        function filterProjects(category) {
+            currentCategory = category;
+
+            // Update button styles
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter cards
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                if (category === 'all' || cardCategory === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function viewProject(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            const modal = document.getElementById('project-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+
+            modalTitle.textContent = project.title;
+
+            const gradients = {
+                plastic: 'linear-gradient(135deg, #dbeafe, #bfdbfe)',
+                paper: 'linear-gradient(135deg, #fef3c7, #fde68a)',
+                cardboard: 'linear-gradient(135deg, #fed7aa, #fdba74)',
+                glass: 'linear-gradient(135deg, #e0e7ff, #c7d2fe)',
+                metal: 'linear-gradient(135deg, #e5e7eb, #d1d5db)',
+                fabric: 'linear-gradient(135deg, #fce7f3, #fbcfe8)'
+            };
+
+            modalBody.innerHTML = `
+                <div class="modal-image" style="background: ${gradients[project.category]}">${project.emoji}</div>
+                
+                <div class="materials-section">
+                    <h3 class="section-title">
+                        <span>📦</span>
+                        <span>Materials Needed</span>
+                    </h3>
+                    <ul class="materials-list">
+                        ${project.materials.map(item => `
+                            <li class="material-item">
+                                <span class="material-icon">✓</span>
+                                <span>${item}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div class="steps-section">
+                    <h3 class="section-title">
+                        <span>📝</span>
+                        <span>Step-by-Step Instructions</span>
+                    </h3>
+                    <ol class="steps-list">
+                        ${project.steps.map((step, index) => `
+                            <li class="step-item">
+                                <div class="step-number">${index + 1}</div>
+                                <div class="step-content">
+                                    <h4 class="step-title">${step.title}</h4>
+                                    <p class="step-description">${step.description}</p>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ol>
+                </div>
+
+                <div class="impact-section">
+                    <h3 class="impact-title">🌍 Environmental Impact</h3>
+                    <div class="impact-stats">
+                        ${project.impact.map(item => `<div>✓ ${item}</div>`).join('')}
+                    </div>
+                </div>
+
+                <div class="video-section">
+                    <h3 class="section-title" style="color: #991b1b; margin-bottom: 0.75rem;">
+                        <span>📺</span>
+                        <span>Video Tutorial</span>
+                    </h3>
+                    <button class="video-button" onclick="openYouTube('${project.youtube}')">
+                        <span>▶️</span>
+                        <span>Watch on YouTube</span>
+                    </button>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== document.getElementById('project-modal')) return;
+            
+            const modal = document.getElementById('project-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openYouTube(url) {
+            window.open(url, '_blank');
+        }
+
+        function goBack() {
+            window.history.back();
+            // Or: window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segregation Guide - Campus Waste Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .header-icon-container {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #166534;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(to right, #22c55e, #3b82f6, #a855f7);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-section h2 {
+            color: white;
+        }
+
+        .hero-section p {
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 42rem;
+        }
+
+        .decorative-circle-1 {
+            position: absolute;
+            top: -8rem;
+            right: -8rem;
+            width: 16rem;
+            height: 16rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .decorative-circle-2 {
+            position: absolute;
+            bottom: -5rem;
+            right: 5rem;
+            width: 10rem;
+            height: 10rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        /* Quick Reference Cards */
+        .quick-reference {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 640px) {
+            .quick-reference {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .quick-card {
+            padding: 1rem;
+            border-radius: 1rem;
+            border: 2px solid;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .quick-card:hover {
+            transform: scale(1.05);
+        }
+
+        .quick-card-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-size: 2rem;
+        }
+
+        .quick-card-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .quick-card-subtitle {
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+
+        /* Category Cards */
+        .categories {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: scale(1.02);
+        }
+
+        .category-header {
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            font-size: 4rem;
+        }
+
+        .category-header-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .category-title-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-icon-large {
+            width: 5rem;
+            height: 5rem;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-size: 3rem;
+        }
+
+        .category-title h2 {
+            color: white;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-title p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.125rem;
+        }
+
+        .category-badge {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            backdrop-filter: blur(8px);
+            font-size: 0.875rem;
+        }
+
+        .category-content {
+            padding: 2rem;
+        }
+
+        .category-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .examples-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .example-card {
+            border: 2px solid;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .example-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: translateY(-0.25rem);
+        }
+
+        .example-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-text {
+            color: #374151;
+            font-size: 0.875rem;
+        }
+
+        /* Do's and Don'ts */
+        .dos-donts-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .dos-donts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .dos-card {
+            background: linear-gradient(to bottom right, #f0fdf4, #d1fae5);
+            border: 2px solid #bbf7d0;
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .donts-card {
+            background: linear-gradient(to bottom right, #fef2f2, #ffe4e6);
+            border: 2px solid #fecaca;
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .dos-donts-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .dos-donts-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .dos-donts-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .dos-donts-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            background: white;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .dos-donts-emoji {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .dos-donts-text {
+            color: #374151;
+        }
+
+        /* Tip Section */
+        .tip-section {
+            border: 2px solid;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .tip-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Pro Tips Section */
+        .pro-tips-section {
+            background: linear-gradient(to bottom right, #fef3c7, #fed7aa, #fecaca);
+            border: 2px solid #fbbf24;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .pro-tips-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pro-tips-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(to bottom right, #fbbf24, #f97316);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-size: 1.75rem;
+        }
+
+        .pro-tips-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .pro-tips-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .pro-tip-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s;
+        }
+
+        .pro-tip-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .pro-tip-emoji {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .pro-tip-title {
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .pro-tip-text {
+            color: #4b5563;
+            font-size: 0.875rem;
+        }
+
+        /* Impact Statistics */
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .impact-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: linear-gradient(to bottom right, var(--from-color), var(--to-color));
+            border-radius: 1rem;
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        /* Warning Section */
+        .warning-section {
+            background: linear-gradient(to right, #fef2f2, #fff7ed);
+            border: 2px solid #fecaca;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .warning-icon {
+            width: 3rem;
+            height: 3rem;
+            background: #ef4444;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .warning-content h3 {
+            color: #7f1d1d;
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-list {
+            list-style: none;
+            color: #374151;
+        }
+
+        .warning-list li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Plastics Guide */
+        .plastics-guide {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .plastics-header {
+            background: linear-gradient(to right, #06b6d4, #2563eb);
+            padding: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plastics-header-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .plastics-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .plastics-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-size: 2rem;
+        }
+
+        .plastics-content {
+            padding: 2rem;
+        }
+
+        .plastics-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .plastics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .plastics-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .plastic-card {
+            border: 2px solid;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .plastic-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .plastic-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .plastic-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .plastic-code {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+
+        .plastic-code-symbol {
+            font-size: 0.75rem;
+            color: white;
+        }
+
+        .plastic-code-number {
+            font-weight: 700;
+            color: white;
+        }
+
+        .plastic-info h4 {
+            margin-bottom: 0.125rem;
+        }
+
+        .plastic-status {
+            font-size: 0.75rem;
+        }
+
+        .plastic-description {
+            font-size: 0.875rem;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .plastic-action {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .plastic-tip {
+            background: #dbeafe;
+            border: 2px solid #93c5fd;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .plastic-tip-emoji {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .plastic-tip-title {
+            color: #1e3a8a;
+            margin-bottom: 0.25rem;
+        }
+
+        .plastic-tip-text {
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        /* Unsure Section */
+        .unsure-section {
+            background: linear-gradient(to bottom right, #faf5ff, #fce7f3, #ffe4e6);
+            border: 2px solid #d8b4fe;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .unsure-header {
+            background: linear-gradient(to right, #9333ea, #ec4899);
+            padding: 2rem;
+            color: white;
+        }
+
+        .unsure-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .unsure-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-size: 2rem;
+        }
+
+        .unsure-content {
+            padding: 2rem;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .options-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid #e9d5ff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.2s;
+        }
+
+        .option-card:hover {
+            border-color: #c084fc;
+        }
+
+        .option-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .option-icon {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(to bottom right, var(--from-color), var(--to-color));
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-size: 1.5rem;
+        }
+
+        .option-text h3 {
+            color: #581c87;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-text p {
+            color: #374151;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .option-badge {
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        /* Default Rule */
+        .default-rule {
+            background: linear-gradient(to right, #fef3c7, #fde68a);
+            border: 2px solid #fcd34d;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .default-rule-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .default-rule-icon {
+            width: 3rem;
+            height: 3rem;
+            background: #eab308;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-size: 1.5rem;
+        }
+
+        .default-rule-text h3 {
+            color: #78350f;
+            margin-bottom: 0.5rem;
+        }
+
+        .default-rule-text > p {
+            color: #1f2937;
+            margin-bottom: 0.75rem;
+        }
+
+        .default-rule-box {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        .default-rule-box p {
+            margin-bottom: 0.5rem;
+        }
+
+        .default-rule-list {
+            list-style: none;
+            font-size: 0.75rem;
+        }
+
+        .default-rule-list li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Flowchart */
+        .flowchart {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .flowchart h3 {
+            color: #111827;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .flowchart-steps {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .flowchart-step {
+            border: 2px solid;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+        }
+
+        .flowchart-arrow {
+            color: #9ca3af;
+        }
+
+        /* Back Button */
+        .back-button-section {
+            margin-top: 2rem;
+        }
+
+        .back-button {
+            background: linear-gradient(to right, #16a34a, #15803d);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(to right, #15803d, #166534);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 640px) {
+            .back-button {
+                width: auto;
+            }
+        }
+
+        /* SVG Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .icon-white {
+            stroke: white;
+        }
+
+        .icon-gray {
+            stroke: #4b5563;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <button class="back-btn" onclick="goBack()">
+                    <svg class="icon icon-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="header-icon-container">
+                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <h1>Segregation Guide</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-header">
+                        <span style="font-size: 2rem;">✨</span>
+                        <h2>Learn Proper Waste Segregation</h2>
+                    </div>
+                    <p>Proper waste segregation is the first step towards a cleaner, greener campus. Follow this colorful guide to sort waste correctly!</p>
+                </div>
+                <div class="decorative-circle-1"></div>
+                <div class="decorative-circle-2"></div>
+            </div>
+
+            <!-- Quick Reference Cards -->
+            <div class="quick-reference">
+                <div class="quick-card" style="background: #eff6ff; border-color: #bfdbfe;">
+                    <div class="quick-card-icon" style="background: #3b82f6;">
+                        <span>♻️</span>
+                    </div>
+                    <p class="quick-card-title" style="color: #1e40af;">Recyclable</p>
+                    <p class="quick-card-subtitle">Blue Bin</p>
+                </div>
+                <div class="quick-card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                    <div class="quick-card-icon" style="background: #22c55e;">
+                        <span>🌱</span>
+                    </div>
+                    <p class="quick-card-title" style="color: #166534;">Organic</p>
+                    <p class="quick-card-subtitle">Green Bin</p>
+                </div>
+                <div class="quick-card" style="background: #fef2f2; border-color: #fecaca;">
+                    <div class="quick-card-icon" style="background: #ef4444;">
+                        <span>🔋</span>
+                    </div>
+                    <p class="quick-card-title" style="color: #991b1b;">E-Waste</p>
+                    <p class="quick-card-subtitle">Red Bin</p>
+                </div>
+                <div class="quick-card" style="background: #f9fafb; border-color: #e5e7eb;">
+                    <div class="quick-card-icon" style="background: #374151;">
+                        <span>🗑️</span>
+                    </div>
+                    <p class="quick-card-title" style="color: #1f2937;">General Waste</p>
+                    <p class="quick-card-subtitle">Black Bin</p>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="categories">
+                <!-- Recyclable -->
+                <div class="category-card">
+                    <div class="category-header" style="background: #3b82f6;">
+                        <div class="category-pattern">
+                            <div style="position: absolute; top: 1rem; left: 1rem;">♻️</div>
+                            <div style="position: absolute; top: 1rem; right: 1rem;">♻️</div>
+                            <div style="position: absolute; bottom: 1rem; left: 25%;">♻️</div>
+                            <div style="position: absolute; bottom: 1rem; right: 25%;">♻️</div>
+                        </div>
+                        <div class="category-header-content">
+                            <div class="category-title-section">
+                                <div class="category-icon-large">
+                                    <span>♻️</span>
+                                </div>
+                                <div class="category-title">
+                                    <h2>Recyclable</h2>
+                                    <p>Dispose in <strong>Blue Bin</strong></p>
+                                </div>
+                            </div>
+                            <div class="category-badge" style="background: #dbeafe; color: #1e40af;">
+                                <span>Category 1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <!-- Examples -->
+                        <div class="category-section">
+                            <div class="section-header">
+                                <div class="section-icon" style="background: #3b82f6;">
+                                    <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <h3 style="color: #1e40af;">What Goes Here?</h3>
+                            </div>
+                            <div class="examples-grid">
+                                <div class="example-card" style="background: #eff6ff; border-color: #bfdbfe;">
+                                    <div class="example-emoji">🍾</div>
+                                    <span class="example-text">Plastic bottles</span>
+                                </div>
+                                <div class="example-card" style="background: #eff6ff; border-color: #bfdbfe;">
+                                    <div class="example-emoji">📄</div>
+                                    <span class="example-text">Paper</span>
+                                </div>
+                                <div class="example-card" style="background: #eff6ff; border-color: #bfdbfe;">
+                                    <div class="example-emoji">📦</div>
+                                    <span class="example-text">Cardboard</span>
+                                </div>
+                                <div class="example-card" style="background: #eff6ff; border-color: #bfdbfe;">
+                                    <div class="example-emoji">🍶</div>
+                                    <span class="example-text">Glass bottles</span>
+                                </div>
+                                <div class="example-card" style="background: #eff6ff; border-color: #bfdbfe;">
+                                    <div class="example-emoji">🥫</div>
+                                    <span class="example-text">Metal cans</span>
+                                </div>
+                                <div class="example-card" style="background: #eff6ff; border-color: #bfdbfe;">
+                                    <div class="example-emoji">📰</div>
+                                    <span class="example-text">Newspapers</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Do's and Don'ts -->
+                        <div class="dos-donts-grid">
+                            <div class="dos-card">
+                                <div class="dos-donts-header">
+                                    <div class="dos-donts-icon" style="background: #22c55e;">
+                                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 style="color: #14532d;">Do's ✓</h3>
+                                </div>
+                                <ul class="dos-donts-list">
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Clean and dry items</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Remove caps and labels</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Flatten cardboard boxes</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="donts-card">
+                                <div class="dos-donts-header">
+                                    <div class="dos-donts-icon" style="background: #ef4444;">
+                                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 style="color: #7f1d1d;">Don'ts ✗</h3>
+                                </div>
+                                <ul class="dos-donts-list">
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Food-contaminated items</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Plastic bags</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Broken glass</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Dirty containers</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Tip -->
+                        <div class="tip-section" style="background: #eff6ff; border-color: #bfdbfe;">
+                            <div class="tip-icon" style="background: #3b82f6;">
+                                <span style="color: white; font-size: 1.5rem;">✨</span>
+                            </div>
+                            <div>
+                                <h4 style="color: #1e40af;">Pro Tip</h4>
+                                <p style="color: #374151; margin-top: 0.25rem;">Recycling saves energy and reduces landfill waste!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Organic -->
+                <div class="category-card">
+                    <div class="category-header" style="background: #22c55e;">
+                        <div class="category-pattern">
+                            <div style="position: absolute; top: 1rem; left: 1rem;">🌱</div>
+                            <div style="position: absolute; top: 1rem; right: 1rem;">🌱</div>
+                            <div style="position: absolute; bottom: 1rem; left: 25%;">🌱</div>
+                            <div style="position: absolute; bottom: 1rem; right: 25%;">🌱</div>
+                        </div>
+                        <div class="category-header-content">
+                            <div class="category-title-section">
+                                <div class="category-icon-large">
+                                    <span>🌱</span>
+                                </div>
+                                <div class="category-title">
+                                    <h2>Organic</h2>
+                                    <p>Dispose in <strong>Green Bin</strong></p>
+                                </div>
+                            </div>
+                            <div class="category-badge" style="background: #dcfce7; color: #166534;">
+                                <span>Category 2</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <!-- Examples -->
+                        <div class="category-section">
+                            <div class="section-header">
+                                <div class="section-icon" style="background: #22c55e;">
+                                    <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <h3 style="color: #166534;">What Goes Here?</h3>
+                            </div>
+                            <div class="examples-grid">
+                                <div class="example-card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                                    <div class="example-emoji">🍽️</div>
+                                    <span class="example-text">Food scraps</span>
+                                </div>
+                                <div class="example-card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                                    <div class="example-emoji">🍌</div>
+                                    <span class="example-text">Fruit peels</span>
+                                </div>
+                                <div class="example-card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                                    <div class="example-emoji">🥕</div>
+                                    <span class="example-text">Vegetable waste</span>
+                                </div>
+                                <div class="example-card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                                    <div class="example-emoji">🍵</div>
+                                    <span class="example-text">Tea bags</span>
+                                </div>
+                                <div class="example-card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                                    <div class="example-emoji">☕</div>
+                                    <span class="example-text">Coffee grounds</span>
+                                </div>
+                                <div class="example-card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                                    <div class="example-emoji">🌿</div>
+                                    <span class="example-text">Garden waste</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Do's and Don'ts -->
+                        <div class="dos-donts-grid">
+                            <div class="dos-card">
+                                <div class="dos-donts-header">
+                                    <div class="dos-donts-icon" style="background: #22c55e;">
+                                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 style="color: #14532d;">Do's ✓</h3>
+                                </div>
+                                <ul class="dos-donts-list">
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Remove packaging</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Break into smaller pieces</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Include plant-based materials</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="donts-card">
+                                <div class="dos-donts-header">
+                                    <div class="dos-donts-icon" style="background: #ef4444;">
+                                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 style="color: #7f1d1d;">Don'ts ✗</h3>
+                                </div>
+                                <ul class="dos-donts-list">
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Meat and bones</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Dairy products</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Oily food</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Plastic packaging</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Tip -->
+                        <div class="tip-section" style="background: #f0fdf4; border-color: #bbf7d0;">
+                            <div class="tip-icon" style="background: #22c55e;">
+                                <span style="color: white; font-size: 1.5rem;">✨</span>
+                            </div>
+                            <div>
+                                <h4 style="color: #166534;">Pro Tip</h4>
+                                <p style="color: #374151; margin-top: 0.25rem;">Organic waste creates nutrient-rich compost for plants!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-Waste -->
+                <div class="category-card">
+                    <div class="category-header" style="background: #ef4444;">
+                        <div class="category-pattern">
+                            <div style="position: absolute; top: 1rem; left: 1rem;">🔋</div>
+                            <div style="position: absolute; top: 1rem; right: 1rem;">🔋</div>
+                            <div style="position: absolute; bottom: 1rem; left: 25%;">🔋</div>
+                            <div style="position: absolute; bottom: 1rem; right: 25%;">🔋</div>
+                        </div>
+                        <div class="category-header-content">
+                            <div class="category-title-section">
+                                <div class="category-icon-large">
+                                    <span>🔋</span>
+                                </div>
+                                <div class="category-title">
+                                    <h2>E-Waste</h2>
+                                    <p>Dispose in <strong>Red Bin</strong></p>
+                                </div>
+                            </div>
+                            <div class="category-badge" style="background: #fee2e2; color: #991b1b;">
+                                <span>Category 3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <!-- Examples -->
+                        <div class="category-section">
+                            <div class="section-header">
+                                <div class="section-icon" style="background: #ef4444;">
+                                    <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <h3 style="color: #991b1b;">What Goes Here?</h3>
+                            </div>
+                            <div class="examples-grid">
+                                <div class="example-card" style="background: #fef2f2; border-color: #fecaca;">
+                                    <div class="example-emoji">🔋</div>
+                                    <span class="example-text">Batteries</span>
+                                </div>
+                                <div class="example-card" style="background: #fef2f2; border-color: #fecaca;">
+                                    <div class="example-emoji">📱</div>
+                                    <span class="example-text">Old phones</span>
+                                </div>
+                                <div class="example-card" style="background: #fef2f2; border-color: #fecaca;">
+                                    <div class="example-emoji">🔌</div>
+                                    <span class="example-text">Chargers</span>
+                                </div>
+                                <div class="example-card" style="background: #fef2f2; border-color: #fecaca;">
+                                    <div class="example-emoji">💡</div>
+                                    <span class="example-text">Light bulbs</span>
+                                </div>
+                                <div class="example-card" style="background: #fef2f2; border-color: #fecaca;">
+                                    <div class="example-emoji">⚡</div>
+                                    <span class="example-text">Small electronics</span>
+                                </div>
+                                <div class="example-card" style="background: #fef2f2; border-color: #fecaca;">
+                                    <div class="example-emoji">💾</div>
+                                    <span class="example-text">USB drives</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Do's and Don'ts -->
+                        <div class="dos-donts-grid">
+                            <div class="dos-card">
+                                <div class="dos-donts-header">
+                                    <div class="dos-donts-icon" style="background: #22c55e;">
+                                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 style="color: #14532d;">Do's ✓</h3>
+                                </div>
+                                <ul class="dos-donts-list">
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Handle with care</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Keep dry</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Store separately</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="donts-card">
+                                <div class="dos-donts-header">
+                                    <div class="dos-donts-icon" style="background: #ef4444;">
+                                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 style="color: #7f1d1d;">Don'ts ✗</h3>
+                                </div>
+                                <ul class="dos-donts-list">
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Mix with regular waste</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Break or damage</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Dispose in water</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Tip -->
+                        <div class="tip-section" style="background: #fef2f2; border-color: #fecaca;">
+                            <div class="tip-icon" style="background: #ef4444;">
+                                <span style="color: white; font-size: 1.5rem;">✨</span>
+                            </div>
+                            <div>
+                                <h4 style="color: #991b1b;">Pro Tip</h4>
+                                <p style="color: #374151; margin-top: 0.25rem;">E-waste contains valuable materials that can be recovered!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- General Waste -->
+                <div class="category-card">
+                    <div class="category-header" style="background: #374151;">
+                        <div class="category-pattern">
+                            <div style="position: absolute; top: 1rem; left: 1rem;">🗑️</div>
+                            <div style="position: absolute; top: 1rem; right: 1rem;">🗑️</div>
+                            <div style="position: absolute; bottom: 1rem; left: 25%;">🗑️</div>
+                            <div style="position: absolute; bottom: 1rem; right: 25%;">🗑️</div>
+                        </div>
+                        <div class="category-header-content">
+                            <div class="category-title-section">
+                                <div class="category-icon-large">
+                                    <span>🗑️</span>
+                                </div>
+                                <div class="category-title">
+                                    <h2>General Waste</h2>
+                                    <p>Dispose in <strong>Black Bin</strong></p>
+                                </div>
+                            </div>
+                            <div class="category-badge" style="background: #f3f4f6; color: #1f2937;">
+                                <span>Category 4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <!-- Examples -->
+                        <div class="category-section">
+                            <div class="section-header">
+                                <div class="section-icon" style="background: #374151;">
+                                    <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <h3 style="color: #1f2937;">What Goes Here?</h3>
+                            </div>
+                            <div class="examples-grid">
+                                <div class="example-card" style="background: #f9fafb; border-color: #e5e7eb;">
+                                    <div class="example-emoji">🧻</div>
+                                    <span class="example-text">Tissues</span>
+                                </div>
+                                <div class="example-card" style="background: #f9fafb; border-color: #e5e7eb;">
+                                    <div class="example-emoji">🍬</div>
+                                    <span class="example-text">Wrappers</span>
+                                </div>
+                                <div class="example-card" style="background: #f9fafb; border-color: #e5e7eb;">
+                                    <div class="example-emoji">📦</div>
+                                    <span class="example-text">Styrofoam</span>
+                                </div>
+                                <div class="example-card" style="background: #f9fafb; border-color: #e5e7eb;">
+                                    <div class="example-emoji">📃</div>
+                                    <span class="example-text">Contaminated paper</span>
+                                </div>
+                                <div class="example-card" style="background: #f9fafb; border-color: #e5e7eb;">
+                                    <div class="example-emoji">💔</div>
+                                    <span class="example-text">Broken items</span>
+                                </div>
+                                <div class="example-card" style="background: #f9fafb; border-color: #e5e7eb;">
+                                    <div class="example-emoji">🔀</div>
+                                    <span class="example-text">Mixed materials</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Do's and Don'ts -->
+                        <div class="dos-donts-grid">
+                            <div class="dos-card">
+                                <div class="dos-donts-header">
+                                    <div class="dos-donts-icon" style="background: #22c55e;">
+                                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 style="color: #14532d;">Do's ✓</h3>
+                                </div>
+                                <ul class="dos-donts-list">
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Bag properly</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Compact when possible</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">✅</span>
+                                        <span class="dos-donts-text">Tie bags securely</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="donts-card">
+                                <div class="dos-donts-header">
+                                    <div class="dos-donts-icon" style="background: #ef4444;">
+                                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 style="color: #7f1d1d;">Don'ts ✗</h3>
+                                </div>
+                                <ul class="dos-donts-list">
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Include recyclables</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Liquid waste</span>
+                                    </li>
+                                    <li class="dos-donts-item">
+                                        <span class="dos-donts-emoji">❌</span>
+                                        <span class="dos-donts-text">Hazardous materials</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Tip -->
+                        <div class="tip-section" style="background: #f9fafb; border-color: #e5e7eb;">
+                            <div class="tip-icon" style="background: #374151;">
+                                <span style="color: white; font-size: 1.5rem;">✨</span>
+                            </div>
+                            <div>
+                                <h4 style="color: #1f2937;">Pro Tip</h4>
+                                <p style="color: #374151; margin-top: 0.25rem;">Sort carefully - reduce general waste by recycling more!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pro Tips Section -->
+            <div class="pro-tips-section">
+                <div class="pro-tips-header">
+                    <div class="pro-tips-icon">✨</div>
+                    <h3 style="color: #7c2d12;">Pro Tips for Better Segregation</h3>
+                </div>
+                <div class="pro-tips-grid">
+                    <div class="pro-tip-card">
+                        <span class="pro-tip-emoji">🔍</span>
+                        <div>
+                            <p class="pro-tip-title">Check Labels</p>
+                            <p class="pro-tip-text">Look for recycling symbols on packaging</p>
+                        </div>
+                    </div>
+                    <div class="pro-tip-card">
+                        <span class="pro-tip-emoji">💧</span>
+                        <div>
+                            <p class="pro-tip-title">Rinse Containers</p>
+                            <p class="pro-tip-text">Clean items prevent contamination</p>
+                        </div>
+                    </div>
+                    <div class="pro-tip-card">
+                        <span class="pro-tip-emoji">📦</span>
+                        <div>
+                            <p class="pro-tip-title">Flatten Boxes</p>
+                            <p class="pro-tip-text">Save space and remove tape first</p>
+                        </div>
+                    </div>
+                    <div class="pro-tip-card">
+                        <span class="pro-tip-emoji">🎯</span>
+                        <div>
+                            <p class="pro-tip-title">Sort at Source</p>
+                            <p class="pro-tip-text">Keep a small bin at your desk</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Impact Statistics -->
+            <div class="impact-stats">
+                <div class="stat-card" style="--from-color: #3b82f6; --to-color: #2563eb;">
+                    <div class="stat-emoji">♻️</div>
+                    <p class="stat-value">70%</p>
+                    <p class="stat-label">Waste Reduced</p>
+                </div>
+                <div class="stat-card" style="--from-color: #22c55e; --to-color: #16a34a;">
+                    <div class="stat-emoji">🌱</div>
+                    <p class="stat-value">85%</p>
+                    <p class="stat-label">Proper Sorting</p>
+                </div>
+                <div class="stat-card" style="--from-color: #f97316; --to-color: #ea580c;">
+                    <div class="stat-emoji">🎯</div>
+                    <p class="stat-value">1.2k</p>
+                    <p class="stat-label">Active Users</p>
+                </div>
+                <div class="stat-card" style="--from-color: #a855f7; --to-color: #9333ea;">
+                    <div class="stat-emoji">⚡</div>
+                    <p class="stat-value">50%</p>
+                    <p class="stat-label">Energy Saved</p>
+                </div>
+            </div>
+
+            <!-- Warning Section -->
+            <div class="warning-section">
+                <div class="warning-icon">
+                    <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <div class="warning-content">
+                    <h3>⚠️ Important Reminders</h3>
+                    <ul class="warning-list">
+                        <li>• Never mix hazardous materials with regular waste</li>
+                        <li>• Dispose of medical waste in designated containers</li>
+                        <li>• When in doubt, ask a campus waste coordinator</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Plastics Guide -->
+            <div class="plastics-guide">
+                <div class="plastics-header">
+                    <div class="plastics-header-content">
+                        <div class="plastics-title">
+                            <div class="plastics-icon">♻️</div>
+                            <h2 style="color: white;">Know Your Plastics</h2>
+                        </div>
+                        <p style="color: rgba(255, 255, 255, 0.95);">Understanding plastic recycling codes helps you dispose of plastic items correctly</p>
+                    </div>
+                    <div style="position: absolute; top: -6rem; right: -6rem; width: 12rem; height: 12rem; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+                </div>
+                <div class="plastics-content">
+                    <div class="plastics-grid">
+                        <!-- Type 1 -->
+                        <div class="plastic-card" style="background: linear-gradient(to bottom right, #f0fdf4, #d1fae5); border-color: #bbf7d0;">
+                            <div class="plastic-header">
+                                <div class="plastic-code" style="background: #22c55e;">
+                                    <div class="plastic-code-symbol">♻️</div>
+                                    <div class="plastic-code-number">1</div>
+                                </div>
+                                <div class="plastic-info">
+                                    <h4 style="color: #14532d;">PETE/PET</h4>
+                                    <p class="plastic-status" style="color: #166534;">Recyclable ✓</p>
+                                </div>
+                            </div>
+                            <p class="plastic-description">Water bottles, soda bottles, food containers</p>
+                            <div class="plastic-action" style="color: #166534;">
+                                <span>💡</span>
+                                <span>Rinse & recycle in blue bin</span>
+                            </div>
+                        </div>
+
+                        <!-- Type 2 -->
+                        <div class="plastic-card" style="background: linear-gradient(to bottom right, #f0fdf4, #d1fae5); border-color: #bbf7d0;">
+                            <div class="plastic-header">
+                                <div class="plastic-code" style="background: #22c55e;">
+                                    <div class="plastic-code-symbol">♻️</div>
+                                    <div class="plastic-code-number">2</div>
+                                </div>
+                                <div class="plastic-info">
+                                    <h4 style="color: #14532d;">HDPE</h4>
+                                    <p class="plastic-status" style="color: #166534;">Recyclable ✓</p>
+                                </div>
+                            </div>
+                            <p class="plastic-description">Milk jugs, detergent bottles, shampoo bottles</p>
+                            <div class="plastic-action" style="color: #166534;">
+                                <span>💡</span>
+                                <span>Clean thoroughly before recycling</span>
+                            </div>
+                        </div>
+
+                        <!-- Type 3 -->
+                        <div class="plastic-card" style="background: linear-gradient(to bottom right, #fef2f2, #ffe4e6); border-color: #fecaca;">
+                            <div class="plastic-header">
+                                <div class="plastic-code" style="background: #ef4444;">
+                                    <div class="plastic-code-symbol">♻️</div>
+                                    <div class="plastic-code-number">3</div>
+                                </div>
+                                <div class="plastic-info">
+                                    <h4 style="color: #7f1d1d;">PVC</h4>
+                                    <p class="plastic-status" style="color: #991b1b;">Hard to recycle ✗</p>
+                                </div>
+                            </div>
+                            <p class="plastic-description">Pipes, credit cards, window frames</p>
+                            <div class="plastic-action" style="color: #991b1b;">
+                                <span>⚠️</span>
+                                <span>Check local guidelines</span>
+                            </div>
+                        </div>
+
+                        <!-- Type 4 -->
+                        <div class="plastic-card" style="background: linear-gradient(to bottom right, #fefce8, #fef3c7); border-color: #fde68a;">
+                            <div class="plastic-header">
+                                <div class="plastic-code" style="background: #eab308;">
+                                    <div class="plastic-code-symbol">♻️</div>
+                                    <div class="plastic-code-number">4</div>
+                                </div>
+                                <div class="plastic-info">
+                                    <h4 style="color: #713f12;">LDPE</h4>
+                                    <p class="plastic-status" style="color: #854d0e;">Sometimes ⚠️</p>
+                                </div>
+                            </div>
+                            <p class="plastic-description">Plastic bags, squeeze bottles, bread bags</p>
+                            <div class="plastic-action" style="color: #854d0e;">
+                                <span>💡</span>
+                                <span>Return bags to store collection</span>
+                            </div>
+                        </div>
+
+                        <!-- Type 5 -->
+                        <div class="plastic-card" style="background: linear-gradient(to bottom right, #f0fdf4, #d1fae5); border-color: #bbf7d0;">
+                            <div class="plastic-header">
+                                <div class="plastic-code" style="background: #22c55e;">
+                                    <div class="plastic-code-symbol">♻️</div>
+                                    <div class="plastic-code-number">5</div>
+                                </div>
+                                <div class="plastic-info">
+                                    <h4 style="color: #14532d;">PP</h4>
+                                    <p class="plastic-status" style="color: #166534;">Recyclable ✓</p>
+                                </div>
+                            </div>
+                            <p class="plastic-description">Yogurt containers, medicine bottles, straws</p>
+                            <div class="plastic-action" style="color: #166534;">
+                                <span>💡</span>
+                                <span>Rinse & recycle in blue bin</span>
+                            </div>
+                        </div>
+
+                        <!-- Type 6 -->
+                        <div class="plastic-card" style="background: linear-gradient(to bottom right, #fef2f2, #ffe4e6); border-color: #fecaca;">
+                            <div class="plastic-header">
+                                <div class="plastic-code" style="background: #ef4444;">
+                                    <div class="plastic-code-symbol">♻️</div>
+                                    <div class="plastic-code-number">6</div>
+                                </div>
+                                <div class="plastic-info">
+                                    <h4 style="color: #7f1d1d;">PS</h4>
+                                    <p class="plastic-status" style="color: #991b1b;">Not recyclable ✗</p>
+                                </div>
+                            </div>
+                            <p class="plastic-description">Styrofoam, disposable cups, packing peanuts</p>
+                            <div class="plastic-action" style="color: #991b1b;">
+                                <span>🗑️</span>
+                                <span>Dispose in general waste bin</span>
+                            </div>
+                        </div>
+
+                        <!-- Type 7 -->
+                        <div class="plastic-card full-width" style="background: linear-gradient(to bottom right, #f9fafb, #e5e7eb); border-color: #d1d5db;">
+                            <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <div class="plastic-code" style="background: #4b5563; flex-shrink: 0;">
+                                    <div class="plastic-code-symbol">♻️</div>
+                                    <div class="plastic-code-number">7</div>
+                                </div>
+                                <div style="flex: 1;">
+                                    <div style="margin-bottom: 0.5rem;">
+                                        <h4 style="color: #111827;">Other Plastics</h4>
+                                        <p class="plastic-status" style="color: #374151;">Mixed or unclear ⚠️</p>
+                                    </div>
+                                    <p class="plastic-description">All other plastics including polycarbonate, bioplastics, multi-layer packaging</p>
+                                    <div class="plastic-action" style="color: #374151;">
+                                        <span>⚠️</span>
+                                        <span>Usually not recyclable - check with campus waste coordinator or dispose in general waste</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="plastic-tip">
+                        <span class="plastic-tip-emoji">🔍</span>
+                        <div>
+                            <p class="plastic-tip-title">How to Find the Code</p>
+                            <p class="plastic-tip-text">Look for the recycling symbol (usually on the bottom) with a number inside. This tells you what type of plastic it is!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unsure Section -->
+            <div class="unsure-section">
+                <div class="unsure-header">
+                    <div class="unsure-title">
+                        <div class="unsure-icon">❓</div>
+                        <h2 style="color: white;">Not Sure What Type of Waste?</h2>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.95);">Don't worry! Here's what to do when you're confused about waste classification</p>
+                </div>
+                <div class="unsure-content">
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <div class="option-content">
+                                <div class="option-icon" style="--from-color: #3b82f6; --to-color: #2563eb;">📸</div>
+                                <div class="option-text">
+                                    <h3>Use the Scan Feature</h3>
+                                    <p>Take a photo of the item using our Waste Scanner. Our AI will identify it and tell you the correct bin!</p>
+                                    <div class="option-badge" style="background: #dbeafe; color: #1e3a8a;">✨ 94% accuracy rate</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="option-card">
+                            <div class="option-content">
+                                <div class="option-icon" style="--from-color: #22c55e; --to-color: #16a34a;">🔍</div>
+                                <div class="option-text">
+                                    <h3>Check for Symbols</h3>
+                                    <p>Look for recycling symbols, numbers, or text on the packaging that indicate the material type.</p>
+                                    <div class="option-badge" style="background: #dcfce7; color: #14532d;">💡 Usually on bottom or back</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="option-card">
+                            <div class="option-content">
+                                <div class="option-icon" style="--from-color: #f97316; --to-color: #ea580c;">📚</div>
+                                <div class="option-text">
+                                    <h3>Review This Guide</h3>
+                                    <p>Scroll through the categories above and match your item with the examples shown.</p>
+                                    <div class="option-badge" style="background: #ffedd5; color: #7c2d12;">📖 Complete visual reference</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="option-card">
+                            <div class="option-content">
+                                <div class="option-icon" style="--from-color: #ef4444; --to-color: #dc2626;">👥</div>
+                                <div class="option-text">
+                                    <h3>Ask for Help</h3>
+                                    <p>Contact a campus waste coordinator or ask fellow students. You can also report via the Report Issue page.</p>
+                                    <div class="option-badge" style="background: #fee2e2; color: #7f1d1d;">🤝 We're here to help!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Default Rule -->
+                    <div class="default-rule">
+                        <div class="default-rule-content">
+                            <div class="default-rule-icon">⚡</div>
+                            <div class="default-rule-text">
+                                <h3>When All Else Fails: General Waste Rule</h3>
+                                <p>If you're still unsure and can't get help immediately, it's better to place the item in the <strong>General Waste (Black Bin)</strong> rather than contaminating recyclables.</p>
+                                <div class="default-rule-box">
+                                    <p>Why? Contaminated recyclables can ruin an entire batch of recycling. However:</p>
+                                    <ul class="default-rule-list">
+                                        <li>• Take a photo and ask later using the Report Issue feature</li>
+                                        <li>• Learn for next time so you'll know what to do</li>
+                                        <li>• Help us improve by reporting unknown items</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flowchart -->
+                    <div class="flowchart">
+                        <h3>Quick Decision Flowchart</h3>
+                        <div class="flowchart-steps">
+                            <div class="flowchart-step" style="background: #f3e8ff; border-color: #d8b4fe; color: #581c87;">
+                                <p>Is it organic/food waste? → <strong>Green Bin</strong></p>
+                            </div>
+                            <div class="flowchart-arrow">↓ If not</div>
+                            <div class="flowchart-step" style="background: #dbeafe; border-color: #93c5fd; color: #1e3a8a;">
+                                <p>Is it plastic, paper, glass, or metal? → <strong>Check if clean → Blue Bin</strong></p>
+                            </div>
+                            <div class="flowchart-arrow">↓ If not</div>
+                            <div class="flowchart-step" style="background: #fee2e2; border-color: #fca5a5; color: #991b1b;">
+                                <p>Is it electronic/battery? → <strong>Red Bin</strong></p>
+                            </div>
+                            <div class="flowchart-arrow">↓ If not</div>
+                            <div class="flowchart-step" style="background: #f3f4f6; border-color: #d1d5db; color: #111827;">
+                                <p>Still confused? → <strong>Black Bin (General Waste)</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-button-section">
+                <button class="back-button" onclick="goBack()">← Back to Dashboard</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function goBack() {
+            // Replace with your navigation logic
+            window.history.back();
+            // Or navigate to dashboard: window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

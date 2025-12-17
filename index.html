@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eco Lite • Campus Waste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f3f6f2;--card:#ffffff;--green:#1a7f37;--muted:#6b7280;--accent:#155e3b;--soft-shadow:0 8px 26px rgba(2,6,23,0.04);--radius:12px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#eaf7ee,var(--bg));background-image:radial-gradient(circle at 18% 12%, rgba(26,127,55,0.04), transparent 12%), radial-gradient(circle at 85% 82%, rgba(21,94,59,0.03), transparent 12%);color:#0f1721}
+    header{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:var(--card);box-shadow:0 4px 18px rgba(2,6,23,0.04);border-bottom:1px solid rgba(0,0,0,0.03)}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--green);font-size:18px}
+    .nav{display:flex;gap:12px;align-items:center}
+    .btn{padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:0;cursor:pointer}
+    .btn-login{background:transparent;color:var(--muted);border:1px solid rgba(0,0,0,0.06)}
+    .btn-signup{background:var(--green);color:#fff}
+
+    main{max-width:1280px;margin:48px auto;padding:0 28px}
+
+    html { scroll-behavior: smooth; }
+
+    /* Hero - full viewport first-screen */
+    .hero{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 76px);margin-bottom:0;padding-top:20px;padding-bottom:20px;background-image:radial-gradient(circle at 10% 20%, rgba(26,127,55,0.03), transparent 12%), linear-gradient(180deg,transparent,rgba(255,255,255,0.02));}
+    .eco-box{width:min(980px,96%);background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.35));backdrop-filter:blur(8px);border-radius:18px;padding:48px 38px;box-shadow:0 14px 40px rgba(2,6,23,0.07);text-align:center}
+    .eco-title{font-size:42px;margin:0;color:#083014;letter-spacing:0.6px;font-weight:800}
+    .eco-sub{margin:12px 0 18px;color:var(--muted);font-size:16px}
+    .cta-row{display:flex;gap:12px;justify-content:center}
+    .scroll-note{margin-top:14px;color:var(--muted);font-size:14px}
+    .scroll-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;text-decoration:none}
+    .scroll-link .arrow{font-size:18px;opacity:0.95}
+
+    /* About reveal animation */
+    .about-card{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+    .about-card.visible{opacity:1;transform:none}
+    /* keep image visible but subtle */
+    .about-img{opacity:0.98}
+
+
+    /* About section */
+    .about{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:center;padding-top:28px}
+    .about-card{background:var(--card);padding:20px;border-radius:12px;box-shadow:var(--soft-shadow)}
+    .about-img{width:100%;height:220px;border-radius:12px;object-fit:cover;box-shadow:0 8px 18px rgba(2,6,23,0.04)}
+
+    .quicklines{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+    .quicklines .pill{background:linear-gradient(180deg,#e9fbef,#ffffff);padding:10px 12px;border-radius:999px;border:1px solid rgba(26,127,55,0.06);font-weight:800;color:var(--green)}
+
+    /* Responsive */
+    @media (max-width:900px){.about{grid-template-columns:1fr}.eco-title{font-size:32px;padding:0 6px}.eco-box{padding:28px}header{padding:0 12px}}
+    @media (max-width:480px){.eco-title{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><span style="font-size:20px">🌿</span><span>Campus Waste</span></div>
+    <nav class="nav" aria-label="Header actions">
+      <a class="btn btn-login" href="login.html">Login</a>
+      <a class="btn btn-signup" href="login.html">Sign Up</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home-hero">
+      <div class="eco-box">
+        <div class="eco-title">Eco Lite</div>
+        <div class="eco-sub">Simple tools for a cleaner, greener campus — scan, locate, learn, and act.</div>
+
+        <div class="cta-row">
+          <a class="btn btn-signup" href="segregation.html">Learn Segregation</a>
+          <a class="btn btn-login" href="scan.html">Try AI Scanner</a>
+        </div>
+
+        <div class="scroll-note">Scroll down to learn more</div>
+        <div style="margin-top:14px"><a class="scroll-link" href="#about">⬇ Learn more</a></div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="about-card">
+        <h3 style="margin-top:0">About this site</h3>
+        <p style="color:var(--muted)">Eco Lite is a student-driven resource that helps the campus community make better waste decisions. We provide an AI-based scanner, a campus bin locator, clear segregation guides, and DIY reuse ideas — all designed to make responsible disposal easy and approachable.</p>
+
+        <p style="margin-top:12px;color:var(--muted)"><strong>Our approach:</strong> scan. know. dump. save earth — a simple flow to identify items, learn their proper category, dispose responsibly, and reduce landfill impact.</p>
+
+        <div class="quicklines">
+          <div class="pill">scan.</div>
+          <div class="pill">know.</div>
+          <div class="pill">dump.</div>
+          <div class="pill">save earth.</div>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:10px">
+          <a class="btn btn-primary" href="scan.html">Use Scanner</a>
+          <a class="btn btn-ghost" href="find-bin.html">Find Bins</a>
+        </div>
+      </div>
+
+      <aside>
+        <img class="about-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='440' viewBox='0 0 720 440'%3E%3Crect width='100%25' height='100%25' fill='%23f7fff7' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='22'%3EA campus green scene%3C/text%3E%3C/svg%3E" alt="Campus sustainability image">
+      </aside>
+    </section>
+
+    <script>
+      // reveal about-card when scrolled into view
+      (function(){
+        const about = document.querySelector('.about-card');
+        if (!about) return;
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { about.classList.add('visible'); io.disconnect(); }
+          });
+        }, { threshold: 0.15 });
+        io.observe(about);
+      })();
+    </script>
+
+  </main>
+
+  <footer style="padding:28px 20px;color:var(--muted);text-align:center">© Campus Waste • Built for student sustainability</footer>
+</body>
+</html>

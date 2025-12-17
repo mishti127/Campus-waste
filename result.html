@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detection Result</title>
+
+<style>
+body {
+  background: #f7faf7;
+  margin: 0;
+  font-family: Arial;
+  padding: 86px 20px 20px;
+}
+
+/* HEADER */
+header {
+  width:100%;
+  background:#fff;
+  padding:18px 28px;
+  display:flex;
+  align-items:center;
+  box-shadow:0 2px 4px rgba(0,0,0,0.06);
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:10;
+}
+
+.header-inner {
+  width:78%;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.back-btn {
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+}
+.back-btn:hover { background:#f0f0f0; }
+.back-btn svg { width:20px; height:20px; fill:#374151 }
+
+.brand-logo svg { width:48px; height:48px; }
+.header-title { font-size:1.875rem; font-weight:700; color:#166534 }
+
+/* RESULT PANEL */
+.result-panel {
+  width:78%;
+  margin:26px auto 10px;
+  background:#fff;
+  padding:20px 22px 28px;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+}
+
+.result-title {
+  margin:18px 0;
+  font-size:20px;
+  color:#0f172a;
+}
+
+/* MAIN CONTENT */
+.container {
+  display:flex;
+  gap:40px;
+}
+
+/* CAMERA (RESTORED) */
+.capture-box {
+  width:42%;
+  height:380px;
+  background:#d8e6ff;
+  border-radius:14px;
+}
+
+.capture-wrapper {
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.capture-video,
+.capture-image {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.capture-controls {
+  position:absolute;
+  bottom:14px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:8px;
+}
+
+.snap-btn {
+  padding:10px 14px;
+  border-radius:8px;
+  border:none;
+  background:rgba(255,255,255,0.9);
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* INFO */
+.info-box { width:58%; }
+
+.box {
+  padding:22px;
+  margin-bottom:26px;
+  background:#e9f5e9;
+  border-radius:10px;
+  font-size:15px;
+}
+
+.progress-bar {
+  width:100%;
+  height:14px;
+  background:#ddd;
+  border-radius:10px;
+  margin:8px 0;
+}
+
+.fill {
+  height:14px;
+  background:#7b4df7;
+  width:89%;
+  border-radius:10px;
+}
+
+/* ACTION BUTTONS — CENTERED & BIG */
+.action-wrapper {
+  width:100%;
+  margin:24px auto 40px;
+  display:flex;
+  justify-content:center;
+}
+
+.actions {
+  display:flex;
+  gap:40px;
+}
+
+.actions .primary {
+  background:#16a34a;
+  color:#fff;
+  border:none;
+  padding:20px 38px;
+  border-radius:10px;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  min-width:240px;
+}
+
+.actions .secondary {
+  background:#f8faf8;
+  color:#166534;
+  border:2px solid #d1e7d6;
+  padding:20px 38px;
+  border-radius:10px;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  min-width:240px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="scan.html" class="back-btn">
+      <svg viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </a>
+
+    <div class="brand-logo">
+      <svg viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="30" fill="#16a34a"/>
+        <path d="M32 18l4.8 8.6L46 28l-8.6 6L36.6 44 32 36.8 27.4 44l-1.1-10.1L18 28l9.2-1.4L32 18z" fill="#fff"/>
+      </svg>
+    </div>
+
+    <span class="header-title">Scan Waste</span>
+  </div>
+</header>
+
+<div class="result-panel">
+  <h2 class="result-title">✔ Detection Complete</h2>
+
+  <div class="container">
+
+    <div class="capture-box">
+      <div class="capture-wrapper">
+        <video id="cameraVideo" class="capture-video" autoplay playsinline></video>
+        <img id="capturedImage" class="capture-image" style="display:none;">
+        <div class="capture-controls">
+          <button id="snapBtn" class="snap-btn">📸 Capture</button>
+          <button id="retakeBtn" class="snap-btn" style="display:none;">↺ Retake</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="box"><strong>Detected Item</strong><br>Paper Cup</div>
+      <div class="box"><strong>Category</strong><br>Paper</div>
+      <div class="box">
+        <strong>Confidence Level</strong>
+        <div class="progress-bar"><div class="fill"></div></div>
+        89%
+      </div>
+      <div class="box"><strong>Dispose In</strong><br>Blue Bin</div>
+      <div class="box"><strong>Disposal Tip</strong><br>Remove plastic lid before throwing</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CENTERED BUTTONS -->
+<div class="action-wrapper">
+  <div class="actions">
+    <button id="scanAgainBtn" class="primary">Scan Another Item</button>
+    <a href="segregation.html" class="secondary">View Segregation Guide</a>
+  </div>
+</div>
+
+</body>
+</html>

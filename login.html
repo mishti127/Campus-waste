@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoLite • Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:#f4f4f4;
+}
+
+.main{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:80px 20px;
+}
+
+.card{
+  background:#fff;
+  width:100%;
+  max-width:420px;
+  padding:36px;
+  border-radius:10px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.08);
+}
+
+.brand{
+  text-align:center;
+  font-size:28px;
+  font-weight:800;
+  color:#1a7f37;
+  margin-bottom:10px;
+}
+
+h2{
+  margin-bottom:20px;
+}
+
+.input{
+  margin-bottom:16px;
+}
+
+.input input{
+  width:100%;
+  padding:14px;
+  font-size:15px;
+  border-radius:4px;
+  border:1px solid #ddd;
+}
+
+.password-box{
+  position:relative;
+}
+
+.password-box i{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  color:#555;
+}
+
+.actions{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:18px;
+}
+
+.actions a{
+  font-size:14px;
+  color:#1a7f37;
+  text-decoration:none;
+}
+
+.login-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  background:#7ac142;
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  border-radius:30px;
+  cursor:pointer;
+}
+
+.divider{
+  text-align:center;
+  margin:22px 0;
+  color:#888;
+}
+
+.social{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:4px;
+  font-weight:600;
+  cursor:pointer;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.google-icon{
+  width:18px;
+  height:18px;
+}
+
+.terms{
+  margin-top: 16px;
+  font-size: 12px; 
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.5;
+}
+
+footer{
+  background:#2f3437;
+  color:#ccc;
+  padding:20px;
+}
+
+.footer-item{
+  border-bottom:1px solid #444;
+  padding:12px 0;
+  cursor:pointer;
+}
+
+.footer-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.footer-content{
+  display:none;
+  font-size:14px;
+  margin-top:8px;
+  color:#aaa;
+}
+
+.footer-bottom{
+  text-align:center;
+  margin-top:20px;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="main">
+  <div class="card">
+    <div class="brand">EcoLite</div>
+    <h2>Log in</h2>
+
+    <div class="input">
+      <input id="username" type="text" placeholder="Email address">
+    </div>
+
+    <div class="input password-box">
+      <input id="password" type="password" placeholder="Password">
+      <i id="eyeIcon" class="fa fa-eye" onclick="togglePassword()"></i>
+    </div>
+
+    <div class="actions">
+      <a href="#" onclick="forgotPassword()">Forgot password?</a>
+    </div>
+
+    <button class="login-btn" onclick="login()">Log in</button>
+
+    <div class="divider">or</div>
+
+    <!-- GOOGLE BUTTON WITH INLINE SVG -->
+    <button class="social" onclick="loginGoogle()">
+      <svg class="google-icon" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.6 0 6.1 1.6 7.5 2.9l5.1-5.1C33.4 4.1 29.1 2 24 2 14.9 2 7.3 7.8 4.7 15.8l6.9 5.3C13.2 14.3 18.1 9.5 24 9.5z"/>
+        <path fill="#34A853" d="M46.1 24.5c0-1.6-.1-2.8-.4-4H24v7.7h12.7c-.6 3-2.4 5.6-5.1 7.3l7.8 6C43.8 37.4 46.1 31.5 46.1 24.5z"/>
+        <path fill="#4A90E2" d="M11.6 28.1c-.4-1.2-.7-2.5-.7-3.9s.3-2.7.7-3.9l-6.9-5.3C3.3 18.1 2.5 21 2.5 24.2s.8 6.1 2.2 8.8l6.9-4.9z"/>
+        <path fill="#FBBC05" d="M24 46c6.5 0 12-2.1 16-5.7l-7.8-6c-2.1 1.4-4.8 2.2-8.2 2.2-5.9 0-10.8-4.8-12.6-11.3l-6.9 4.9C7.3 40.2 14.9 46 24 46z"/>
+      </svg>
+      Log in with Google
+    </button>
+
+    <!-- FACEBOOK -->
+    <button class="social" onclick="loginFacebook()">
+      <i class="fa-brands fa-facebook" style="color:#1877F2"></i>
+      Log in with Facebook
+    </button>
+
+    <div class="terms">
+      By using our service, you agree to the terms and conditions.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-item" onclick="toggleFooter(this)">
+    <div class="footer-header">Help <i class="fa fa-chevron-down"></i></div>
+    <div class="footer-content">FAQs, guides, and troubleshooting information.</div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    <div class="footer-header">Community <i class="fa fa-chevron-down"></i></div>
+    <div class="footer-content">Join discussions and campus sustainability events.</div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    <div class="footer-header">Support <i class="fa fa-chevron-down"></i></div>
+    <div class="footer-content">Contact our support team for assistance.</div>
+  </div>
+
+  <div class="footer-bottom">© EcoLite — All rights reserved</div>
+</footer>
+
+<script>
+function togglePassword(){
+  const pass = document.getElementById("password");
+  const eye = document.getElementById("eyeIcon");
+
+  if(pass.type === "password"){
+    pass.type = "text";
+    eye.classList.replace("fa-eye","fa-eye-slash");
+  }else{
+    pass.type = "password";
+    eye.classList.replace("fa-eye-slash","fa-eye");
+  }
+}
+
+function login(){
+  const u = document.getElementById("username").value;
+  const p = document.getElementById("password").value;
+  if(u==="" || p===""){ alert("Please enter username and password"); return; }
+  window.location.href="dashboard.html";
+}
+
+function forgotPassword(){
+  alert("Password reset link will be sent to your email.");
+}
+
+function loginGoogle(){
+  window.open("https://accounts.google.com/","_blank");
+}
+
+function loginFacebook(){
+  window.open("https://www.facebook.com/login/","_blank");
+}
+
+function toggleFooter(el){
+  const c = el.querySelector(".footer-content");
+  c.style.display = c.style.display==="block" ? "none" : "block";
+}
+</script>
+
+</body>
+</html>
