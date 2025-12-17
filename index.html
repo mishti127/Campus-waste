@@ -24,8 +24,8 @@ body{
 /* ================= HERO ================= */
 .hero{
   position:relative;
-  background:url("images/background2.jpg") center/cover no-repeat;
-  padding:90px 10% 80px;
+  background:url("images/background1.png") center/cover no-repeat;
+  padding:110px 10% 80px;
   text-align:center;
   color:#fff;
 }
@@ -34,7 +34,7 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,0.25);
+  background:rgba(0,0,0,0.4);
 }
 
 .hero *{
@@ -44,7 +44,7 @@ body{
 
 .hero h2{
   font-size:40px;
-  margin-bottom:15px;
+  margin-bottom:1px;
 }
 
 .hero p{
@@ -74,17 +74,18 @@ section{
 }
 
 .icon-box{
-  background:  #f4fbf7;
+  background:#f4fbf7;
   padding:40px 30px;
   text-align:center;
   border-radius:16px;
-  box-shadow:0 12px 30px rgba(0,0,0,0.12);
-  transition:0.3s ease;
+  box-shadow:0 12px 30px rgba(46, 139, 87, 0.3); /* green shadow */
+  transition:0.3s ease, transform 0.3s ease;
+  cursor:pointer;
 }
 
 .icon-box:hover{
   transform:translateY(-10px);
-  box-shadow:0 18px 40px rgba(0,0,0,0.18);
+  box-shadow:0 15px 35px rgba(46, 139, 87, 0.5); /* brighter green shadow on hover */
 }
 
 .icon-box i{
@@ -102,7 +103,12 @@ section{
   align-items:center;
 }
 
-/* Left text */
+/* ABOUT TEXT + LEAVES */
+.about-text{
+  position:relative;
+  padding:20px;
+}
+
 .about-text h3{
   font-size:32px;
   color:#2e8b57;
@@ -114,37 +120,75 @@ section{
   line-height:1.8;
 }
 
-/* Right boxes */
+/* Translucent leaves */
+.about-text::before{
+  content:"🍃";
+  position:absolute;
+  left:-120px;
+  top:-60px;
+  font-size:100px;
+  opacity:0.5;
+  transform:rotate(-25deg);
+  pointer-events:none;
+}
+
+.about-text::after{
+  content:"🍃";
+  position:absolute;
+  right:-30px;
+  bottom:20px;
+  font-size:80px;
+  opacity:0.5;
+  transform:rotate(20deg);
+  pointer-events:none;
+}
+
+/* Feature grid */
 .feature-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:25px;
 }
 
+/* Feature boxes */
 .feature-box{
   padding:30px;
   border-radius:16px;
   color:#fff;
-  min-height:400px;
   box-shadow:0 12px 30px rgba(0,0,0,0.15);
 }
 
-/* stagger effect */
+.feature-box h4{
+  margin-bottom:12px;
+  font-size:20px;
+}
+
+.feature-box p{
+  font-size:15px;
+  line-height:1.6;
+}
+
 .feature-box.down{
-  margin-top:30px;
+  margin-top:5px;
 }
 
 /* colors */
 .green{background:#2e8b57;}
 .blue{background:#3b82f6;}
 .orange{background:#7b4620;}
-.gray{
-  background:#e5e7eb;
-  color:#333;
+
+/* ================= BIN IMAGE ================= */
+.bin-image{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:600;
+  margin-top:30px;
+}
+
+.bin-image img{
+  max-width:100%;
+  height:auto;
+  border-radius:16px;
 }
 
 /* ================= FOOTER ================= */
@@ -160,6 +204,15 @@ footer{
   .about-features{
     grid-template-columns:1fr;
   }
+
+  .feature-box.down{
+    margin-top:0;
+  }
+
+  .about-text::before,
+  .about-text::after{
+    display:none;
+  }
 }
 </style>
 </head>
@@ -170,64 +223,63 @@ footer{
 <div class="hero">
   <h2>Welcome to EcoLite</h2>
   <p>Smart waste segregation for cleaner and greener campuses.</p>
-  <a href="#" class="cta-btn">Try EcoLite Now</a>
+  <a href="login.html" class="cta-btn">Try EcoLite Now</a>
 </div>
 
-<!-- ICON SECTION -->
 <section>
+
+  <!-- ICON SECTION -->
   <div class="icon-boxes">
     <div class="icon-box">
       <i class="fas fa-lightbulb"></i>
       <h4>Discover</h4>
-      <p>Learn about waste types and impact.</p>
+      <p>Learn about different waste types and their impact.</p>
     </div>
 
     <div class="icon-box">
       <i class="fas fa-recycle"></i>
       <h4>Recycle</h4>
-      <p>Segregate waste correctly.</p>
+      <p>Segregate waste correctly with clear guidance.</p>
     </div>
 
     <div class="icon-box">
       <i class="fas fa-leaf"></i>
       <h4>Eco Habits</h4>
-      <p>Build sustainable practices.</p>
+      <p>Build sustainable habits for a cleaner campus.</p>
     </div>
   </div>
 
   <!-- ABOUT + FEATURES -->
   <div class="about-features">
 
-    <!-- LEFT -->
     <div class="about-text">
-      <h3>About Our Website</h3>
+      <h3>About Our Website...</h3>
       <p>
-        EcoLite is designed to help students easily identify waste types and dispose
-        them responsibly. The platform promotes awareness, recycling habits, and
-        sustainable living across college campuses using smart guidance and visuals.
+        There’s a smarter way to handle the things we throw away. <b>EcoLite</b> quietly guides people across campus toward better decisions, clearer choices, and a cleaner environment. As you explore, you’ll discover simple ways to identify waste, choose healthier disposal options, and even find opportunities to reuse or recycle what you already have. The deeper you go, the more you’ll uncover — step in and see how EcoLite makes sustainable living effortless for everyone.
       </p>
     </div>
 
-    <!-- RIGHT -->
     <div class="feature-grid">
+
       <div class="feature-box green">
-        <h4>Smart Detection</h4>
-        <p>Identify waste type instantly.</p>
+        <h4>Did You Know?</h4>
+        <p>A single teaspoon of soil contains more living organisms than the number of people on Earth.</p>
       </div>
 
       <div class="feature-box blue">
-        <h4>Correct Bin</h4>
-        <p>Know exactly where to dispose.</p>
+        <h4>Avoid this mistake!</h4>
+        <p>Never throw batteries into regular trash bins. Always use e-waste bins.</p>
       </div>
 
       <div class="feature-box orange down">
-        <h4>Awareness</h4>
-        <p>Learn environmental impact.</p>
+        <h4>Eco Tip of the Day</h4>
+        <p>Use refillable pens instead of disposable ones. Students throw away millions of plastic pens every year, and most end up in landfills.</p>
       </div>
 
-      <div class="feature-box gray down">
-        Image here
+      <div class="bin-image">
+        <img src="images/bin.png" alt="Green Dustbin">
       </div>
+
     </div>
 
   </div>
