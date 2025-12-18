@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us | EcoLite</title>
+<title>EcoLite • Login</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <style>
@@ -13,281 +13,248 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+  font-family:'Inter',sans-serif;
 }
 
 body{
-  background:#f9fdfc;
-  color:#333;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:
+    linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+    url("background2.jpg") center/cover no-repeat;
 }
 
-/* ================= HERO ================= */
-.hero{
-  position:relative;
-  background:url("images/background1.png") center/cover no-repeat;
-  padding:110px 10% 80px;
+/* ===== MAIN ===== */
+.main{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:40px 20px;
+}
+
+/* ===== CARD ===== */
+.card{
+  background:#fff;
+  width:100%;
+  max-width:420px;
+  padding:36px;
+  border-radius:14px;
+  box-shadow:0 18px 40px rgba(46,139,87,0.25);
+}
+
+/* ===== BRAND ===== */
+.brand{
   text-align:center;
-  color:#fff;
+  font-size:30px;
+  font-weight:800;
+  color:#2e8b57;
+  margin-bottom:6px;
 }
 
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.4);
+.subtitle{
+  text-align:center;
+  font-size:14px;
+  color:#6b7280;
+  margin-bottom:26px;
 }
 
-.hero *{
+/* ===== INPUTS ===== */
+.input{
+  margin-bottom:14px;
+}
+
+.input input{
+  width:100%;
+  padding:14px;
+  font-size:15px;
+  border-radius:8px;
+  border:1px solid #d1d5db;
+}
+
+.input input:focus{
+  outline:none;
+  border-color:#2e8b57;
+}
+
+/* ===== PASSWORD ===== */
+.password-box{
   position:relative;
-  z-index:1;
 }
 
-.hero h2{
-  font-size:40px;
-  margin-bottom:1px;
+.password-box i{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  color:#555;
 }
 
-.hero p{
-  max-width:900px;
-  margin:auto;
-  margin-bottom:25px;
+/* ===== ACTIONS ===== */
+.actions{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:18px;
 }
 
-.cta-btn{
+.actions a{
+  font-size:14px;
+  color:#2e8b57;
+  text-decoration:none;
+}
+
+/* ===== LOGIN BTN ===== */
+.login-btn{
+  width:100%;
+  padding:14px;
+  border:none;
   background:#2e8b57;
   color:#fff;
-  padding:12px 26px;
-  border-radius:24px;
-  text-decoration:none;
-  font-weight:500;
-}
-
-/* ================= ICON BOXES ================= */
-section{
-  padding:80px 10%;
-}
-
-.icon-boxes{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:30px;
-}
-
-.icon-box{
-  background:#f4fbf7;
-  padding:40px 30px;
-  text-align:center;
-  border-radius:16px;
-  box-shadow:0 12px 30px rgba(46, 139, 87, 0.3); /* green shadow */
-  transition:0.3s ease, transform 0.3s ease;
+  font-size:16px;
+  font-weight:700;
+  border-radius:30px;
   cursor:pointer;
 }
 
-.icon-box:hover{
-  transform:translateY(-10px);
-  box-shadow:0 15px 35px rgba(46, 139, 87, 0.5); /* brighter green shadow on hover */
+.login-btn:hover{
+  background:#256f45;
 }
 
-.icon-box i{
-  font-size:40px;
-  color:#2e8b57;
-  margin-bottom:15px;
+/* ===== DIVIDER ===== */
+.divider{
+  text-align:center;
+  margin:22px 0;
+  color:#9ca3af;
 }
 
-/* ================= ABOUT + FEATURES ================= */
-.about-features{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  margin-top:100px;
-  align-items:center;
-}
-
-/* ABOUT TEXT + LEAVES */
-.about-text{
-  position:relative;
-  padding:20px;
-}
-
-.about-text h3{
-  font-size:32px;
-  color:#2e8b57;
-  margin-bottom:20px;
-}
-
-.about-text p{
-  font-size:16px;
-  line-height:1.8;
-}
-
-/* Translucent leaves */
-.about-text::before{
-  content:"🍃";
-  position:absolute;
-  left:-120px;
-  top:-60px;
-  font-size:100px;
-  opacity:0.5;
-  transform:rotate(-25deg);
-  pointer-events:none;
-}
-
-.about-text::after{
-  content:"🍃";
-  position:absolute;
-  right:-30px;
-  bottom:20px;
-  font-size:80px;
-  opacity:0.5;
-  transform:rotate(20deg);
-  pointer-events:none;
-}
-
-/* Feature grid */
-.feature-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:25px;
-}
-
-/* Feature boxes */
-.feature-box{
-  padding:30px;
-  border-radius:16px;
-  color:#fff;
-  box-shadow:0 12px 30px rgba(0,0,0,0.15);
-}
-
-.feature-box h4{
-  margin-bottom:12px;
-  font-size:20px;
-}
-
-.feature-box p{
-  font-size:15px;
-  line-height:1.6;
-}
-
-.feature-box.down{
-  margin-top:5px;
-}
-
-/* colors */
-.green{background:#2e8b57;}
-.blue{background:#3b82f6;}
-.orange{background:#7b4620;}
-
-/* ================= BIN IMAGE ================= */
-.bin-image{
+/* ===== SOCIAL ===== */
+.social{
+  width:100%;
+  padding:12px;
+  border:1px solid #d1d5db;
+  background:#fff;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  margin-bottom:10px;
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-top:30px;
+  gap:10px;
 }
 
-.bin-image img{
-  max-width:100%;
-  height:auto;
-  border-radius:16px;
+.social:hover{
+  background:#f9fafb;
 }
 
-/* ================= FOOTER ================= */
-footer{
-  background:#2e8b57;
-  color:#fff;
+.google-icon{
+  width:18px;
+  height:18px;
+}
+
+/* ===== SIGNUP ===== */
+.signup{
   text-align:center;
-  padding:25px;
-  margin-top:100px;
+  margin-top:18px;
+  font-size:14px;
 }
 
-@media(max-width:900px){
-  .about-features{
-    grid-template-columns:1fr;
-  }
+.signup a{
+  color:#2e8b57;
+  font-weight:600;
+  text-decoration:none;
+}
 
-  .feature-box.down{
-    margin-top:0;
-  }
-
-  .about-text::before,
-  .about-text::after{
-    display:none;
-  }
+/* ===== FOOTER ===== */
+.footer{
+  text-align:center;
+  padding:18px;
+  font-size:14px;
+  color:#6b7280;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <h2>Welcome to EcoLite</h2>
-  <p>Smart waste segregation for cleaner and greener campuses.</p>
-  <a href="login.html" class="cta-btn">Try EcoLite Now</a>
+<div class="main">
+  <div class="card">
+
+    <div class="brand">EcoLite</div>
+    <div class="subtitle">Smart waste segregation for a greener campus</div>
+
+    <div class="input">
+      <input id="email" type="email" placeholder="Email address">
+    </div>
+
+    <div class="input password-box">
+      <input id="password" type="password" placeholder="Password">
+      <i class="fa fa-eye" onclick="togglePassword()"></i>
+    </div>
+
+    <div class="actions">
+      <a href="#" onclick="forgotPassword()">Forgot password?</a>
+    </div>
+
+    <!-- LOGIN BUTTON -->
+    <button class="login-btn" onclick="login()">Log in</button>
+
+    <div class="divider">or continue with</div>
+
+    <!-- GOOGLE -->
+    <button class="social" onclick="loginGoogle()">
+      <svg class="google-icon" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.6 0 6.1 1.6 7.5 2.9l5.1-5.1C33.4 4.1 29.1 2 24 2 14.9 2 7.3 7.8 4.7 15.8l6.9 5.3C13.2 14.3 18.1 9.5 24 9.5z"/>
+        <path fill="#34A853" d="M46.1 24.5c0-1.6-.1-2.8-.4-4H24v7.7h12.7c-.6 3-2.4 5.6-5.1 7.3l7.8 6C43.8 37.4 46.1 31.5 46.1 24.5z"/>
+        <path fill="#4A90E2" d="M11.6 28.1c-.4-1.2-.7-2.5-.7-3.9s.3-2.7.7-3.9l-6.9-5.3C3.3 18.1 2.5 21 2.5 24.2s.8 6.1 2.2 8.8l6.9-4.9z"/>
+        <path fill="#FBBC05" d="M24 46c6.5 0 12-2.1 16-5.7l-7.8-6c-2.1 1.4-4.8 2.2-8.2 2.2-5.9 0-10.8-4.8-12.6-11.3l-6.9 4.9C7.3 40.2 14.9 46 24 46z"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <!-- FACEBOOK -->
+    <button class="social" onclick="loginFacebook()">
+      <i class="fa-brands fa-facebook" style="color:#1877F2"></i>
+      Continue with Facebook
+    </button>
+
+    <div class="signup">
+      Don’t have an account?
+      <a href="signup.html">Create an account</a>
+    </div>
+
+  </div>
 </div>
 
-<section>
+<div class="footer">
+  © 2025 EcoLite — Sustainability starts with you 🌱
+</div>
 
-  <!-- ICON SECTION -->
-  <div class="icon-boxes">
-    <div class="icon-box">
-      <i class="fas fa-lightbulb"></i>
-      <h4>Discover</h4>
-      <p>Learn about different waste types and their impact.</p>
-    </div>
+<script>
+function togglePassword(){
+  const pass = document.getElementById("password");
+  pass.type = pass.type === "password" ? "text" : "password";
+}
 
-    <div class="icon-box">
-      <i class="fas fa-recycle"></i>
-      <h4>Recycle</h4>
-      <p>Segregate waste correctly with clear guidance.</p>
-    </div>
+function login(){
+  // Direct redirect to dashboard
+  window.location.href = "dashboard.html";
+}
 
-    <div class="icon-box">
-      <i class="fas fa-leaf"></i>
-      <h4>Eco Habits</h4>
-      <p>Build sustainable habits for a cleaner campus.</p>
-    </div>
-  </div>
+function forgotPassword(){
+  alert("Password reset link will be sent to your email.");
+}
 
-  <!-- ABOUT + FEATURES -->
-  <div class="about-features">
+function loginGoogle(){
+  window.open("https://accounts.google.com","_blank");
+}
 
-    <div class="about-text">
-      <h3>About Our Website...</h3>
-      <p>
-        There’s a smarter way to handle the things we throw away. <b>EcoLite</b> quietly guides people across campus toward better decisions, clearer choices, and a cleaner environment. As you explore, you’ll discover simple ways to identify waste, choose healthier disposal options, and even find opportunities to reuse or recycle what you already have. The deeper you go, the more you’ll uncover — step in and see how EcoLite makes sustainable living effortless for everyone.
-      </p>
-    </div>
-
-    <div class="feature-grid">
-
-      <div class="feature-box green">
-        <h4>Did You Know?</h4>
-        <p>A single teaspoon of soil contains more living organisms than the number of people on Earth.</p>
-      </div>
-
-      <div class="feature-box blue">
-        <h4>Avoid this mistake!</h4>
-        <p>Never throw batteries into regular trash bins. Always use e-waste bins.</p>
-      </div>
-
-      <div class="feature-box orange down">
-        <h4>Eco Tip of the Day</h4>
-        <p>Use refillable pens instead of disposable ones. Students throw away millions of plastic pens every year, and most end up in landfills.</p>
-      </div>
-
-      <div class="bin-image">
-        <img src="images/bin.png" alt="Green Dustbin">
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 EcoLite. All rights reserved.</p>
-</footer>
+function loginFacebook(){
+  window.open("https://www.facebook.com/login","_blank");
+}
+</script>
 
 </body>
 </html>
