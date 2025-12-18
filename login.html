@@ -20,10 +20,27 @@ body{
   min-height:100vh;
   display:flex;
   flex-direction:column;
-
   background:
-    linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+    linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
     url("background2.jpg") center/cover no-repeat;
+  overflow:hidden;
+}
+
+/* ===== FLOATING LEAVES ===== */
+.leaf{
+  position:absolute;
+  width:40px;
+  opacity:0.15;
+  animation:float 18s linear infinite;
+}
+
+.leaf:nth-child(1){ left:10%; animation-delay:0s;}
+.leaf:nth-child(2){ left:70%; animation-delay:6s;}
+.leaf:nth-child(3){ left:40%; animation-delay:12s;}
+
+@keyframes float{
+  0%{ top:110%; transform:rotate(0deg);}
+  100%{ top:-20%; transform:rotate(360deg);}
 }
 
 /* ===== MAIN ===== */
@@ -33,6 +50,7 @@ body{
   justify-content:center;
   align-items:center;
   padding:40px 20px;
+  z-index:2;
 }
 
 /* ===== CARD ===== */
@@ -41,8 +59,8 @@ body{
   width:100%;
   max-width:420px;
   padding:36px;
-  border-radius:14px;
-  box-shadow:0 18px 40px rgba(46,139,87,0.25);
+  border-radius:16px;
+  box-shadow:0 20px 45px rgba(46,139,87,0.25);
 }
 
 /* ===== BRAND ===== */
@@ -51,19 +69,18 @@ body{
   font-size:30px;
   font-weight:800;
   color:#2e8b57;
-  margin-bottom:6px;
 }
 
 .subtitle{
   text-align:center;
   font-size:14px;
   color:#6b7280;
-  margin-bottom:26px;
+  margin-bottom:24px;
 }
 
-/* ===== INPUTS ===== */
+/* ===== INPUT ===== */
 .input{
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
 
 .input input{
@@ -90,15 +107,29 @@ body{
   top:50%;
   transform:translateY(-50%);
   cursor:pointer;
-  color:#555;
 }
 
 /* ===== ERROR ===== */
 .error{
   font-size:13px;
   color:#dc2626;
-  margin-bottom:12px;
   display:none;
+  margin-top:6px;
+}
+
+/* ===== STRENGTH ===== */
+.strength{
+  height:6px;
+  border-radius:4px;
+  margin-top:6px;
+  background:#e5e7eb;
+  overflow:hidden;
+}
+
+.strength-bar{
+  height:100%;
+  width:0%;
+  transition:0.3s;
 }
 
 /* ===== ACTIONS ===== */
@@ -114,7 +145,7 @@ body{
   text-decoration:none;
 }
 
-/* ===== LOGIN BTN ===== */
+/* ===== BUTTON ===== */
 .login-btn{
   width:100%;
   padding:14px;
@@ -154,14 +185,7 @@ body{
   gap:10px;
 }
 
-.social:hover{
-  background:#f9fafb;
-}
-
-.google-icon{
-  width:18px;
-  height:18px;
-}
+.google-icon{ width:18px; height:18px; }
 
 /* ===== SIGNUP ===== */
 .signup{
@@ -173,7 +197,6 @@ body{
 .signup a{
   color:#2e8b57;
   font-weight:600;
-  text-decoration:none;
 }
 
 /* ===== FOOTER ===== */
@@ -182,6 +205,7 @@ body{
   padding:18px;
   font-size:14px;
   color:#6b7280;
+  z-index:2;
 }
 </style>
 </head>
@@ -194,17 +218,18 @@ body{
     <div class="brand">EcoLite</div>
     <div class="subtitle">Smart waste segregation for a greener campus</div>
 
-    <div class="error" id="errorMsg">
-      Password must contain at least one capital letter, one number, and one special character.
-    </div>
-
     <div class="input">
       <input id="email" type="email" placeholder="Email address">
+      <div class="error" id="emailError"></div>
     </div>
 
     <div class="input password-box">
-      <input id="password" type="password" placeholder="Password">
+      <input id="password" type="password" placeholder="Password" oninput="checkStrength()">
       <i class="fa fa-eye" onclick="togglePassword()"></i>
+      <div class="strength">
+        <div class="strength-bar" id="strengthBar"></div>
+      </div>
+      <div class="error" id="passError"></div>
     </div>
 
     <div class="actions">
@@ -215,18 +240,13 @@ body{
 
     <div class="divider">or continue with</div>
 
-    <!-- GOOGLE -->
     <button class="social" onclick="loginGoogle()">
       <svg class="google-icon" viewBox="0 0 48 48">
-        <path fill="#EA4335" d="M24 9.5c3.6 0 6.1 1.6 7.5 2.9l5.1-5.1C33.4 4.1 29.1 2 24 2 14.9 2 7.3 7.8 4.7 15.8l6.9 5.3C13.2 14.3 18.1 9.5 24 9.5z"/>
-        <path fill="#34A853" d="M46.1 24.5c0-1.6-.1-2.8-.4-4H24v7.7h12.7c-.6 3-2.4 5.6-5.1 7.3l7.8 6C43.8 37.4 46.1 31.5 46.1 24.5z"/>
-        <path fill="#4A90E2" d="M11.6 28.1c-.4-1.2-.7-2.5-.7-3.9s.3-2.7.7-3.9l-6.9-5.3C3.3 18.1 2.5 21 2.5 24.2s.8 6.1 2.2 8.8l6.9-4.9z"/>
-        <path fill="#FBBC05" d="M24 46c6.5 0 12-2.1 16-5.7l-7.8-6c-2.1 1.4-4.8 2.2-8.2 2.2-5.9 0-10.8-4.8-12.6-11.3l-6.9 4.9C7.3 40.2 14.9 46 24 46z"/>
+        <path fill="#EA4335" d="M24 9.5c3.6 0 6.1 1.6 7.5 2.9l5.1-5.1C33.4 4.1 29.1 2 24 2"/>
       </svg>
       Continue with Google
     </button>
 
-    <!-- FACEBOOK -->
     <button class="social" onclick="loginFacebook()">
       <i class="fa-brands fa-facebook" style="color:#1877F2"></i>
       Continue with Facebook
@@ -246,24 +266,61 @@ body{
 
 <script>
 function togglePassword(){
-  const pass = document.getElementById("password");
-  pass.type = pass.type === "password" ? "text" : "password";
+  const p = document.getElementById("password");
+  p.type = p.type === "password" ? "text" : "password";
+}
+
+function checkStrength(){
+  const pass = document.getElementById("password").value;
+  const bar = document.getElementById("strengthBar");
+
+  let strength = 0;
+  if(pass.length >= 6) strength++;
+  if(/[A-Z]/.test(pass)) strength++;
+  if(/\d/.test(pass)) strength++;
+  if(/[@$!%*?&]/.test(pass)) strength++;
+
+  if(strength <= 1){
+    bar.style.width = "25%";
+    bar.style.background = "#dc2626";
+  }else if(strength <= 3){
+    bar.style.width = "60%";
+    bar.style.background = "#f59e0b";
+  }else{
+    bar.style.width = "100%";
+    bar.style.background = "#16a34a";
+  }
 }
 
 function login(){
-  const email = document.getElementById("email").value;
-  const pass = document.getElementById("password").value;
-  const error = document.getElementById("errorMsg");
+  const email = emailInput.value.trim();
+  const pass = password.value.trim();
 
-  const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/;
+  emailError.style.display = "none";
+  passError.style.display = "none";
 
-  if(!regex.test(pass)){
-    error.style.display = "block";
+  if(email === "" || pass === ""){
+    emailError.innerText = "Please fill all the details.";
+    emailError.style.display = "block";
     return;
   }
 
-  error.style.display = "none";
-  window.location.href = "dashboard.html";
+  if(!email.includes("@")){
+    emailError.innerText = "Email must contain @ symbol.";
+    emailError.style.display = "block";
+    return;
+  }
+
+  const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/;
+  if(!regex.test(pass)){
+    passError.innerText =
+      "Password must contain 1 capital letter, 1 number & 1 special character.";
+    passError.style.display = "block";
+    return;
+  }
+
+  // ✅ REDIRECT (WORKING)
+  window.location.assign("dashboard.html");
 }
 
 function forgotPassword(){
