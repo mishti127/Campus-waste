@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoLite | Home</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  height:100vh;
+  background:url("images/ecolite.png") center/cover no-repeat;
+  position:relative;
+}
+
+/* dark overlay */
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  position:absolute;
+  top:20px;
+  right:40px;
+  display:flex;
+  gap:20px;
+  z-index:2;
+}
+
+.navbar a{
+  color:#fff;
+  text-decoration:none;
+  font-size:15px;
+  padding:8px 18px;
+  border-radius:30px;
+  transition:0.3s ease;
+  border:1px solid rgba(255,255,255,0.5);
+}
+
+/* hover */
+.navbar a:hover{
+  background:#2e8b57;
+  border-color:#2e8b57;
+}
+
+/* active home button */
+.navbar a.active{
+  background:#2e8b57;
+  border-color:#2e8b57;
+}
+
+/* ================= CENTER CONTENT ================= */
+.center-content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  color:#fff;
+  text-align:center;
+  z-index:2;
+}
+
+.center-content h1{
+  font-size:60px;
+  font-weight:600;
+  letter-spacing:2px;
+}
+
+.center-content p{
+  margin-top:15px;
+  font-size:18px;
+  max-width:700px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<div class="navbar">
+  <a href="home.html" class="active">Home</a>
+  <a href="index.html">About Us</a>
+  <a href="login.html">Get Started</a>
+</div>
+
+
+
+</body>
+</html>

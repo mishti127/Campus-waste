@@ -30,6 +30,7 @@
             background: white;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
             padding: 1rem 0;
+            z-index: 1000; /* keep header above the drawer/backdrop */
         }
 
         /* Hamburger menu button */
@@ -40,49 +41,50 @@
             border-radius: 0.5rem;
             cursor: pointer;
             display: inline-flex;
+            flex-direction: column; /* ensure bars stack vertically */
             align-items: center;
             justify-content: center;
+            gap: 4px;
         }
         .menu-btn .bar {
             display: block;
             width: 20px;
-            height: 2px;
+            height: 3px;       /* slightly thicker for visibility */
             background: #374151;
-            margin: 3px 0;
+            margin: 0;         /* spacing handled by gap */
             transition: transform 0.18s ease, opacity 0.18s ease;
         }
-        .menu-btn[aria-expanded="true"] .bar:nth-child(1) { transform: translateY(5px) rotate(45deg); }
-        .menu-btn[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
-        .menu-btn[aria-expanded="true"] .bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
 
         /* Side drawer navigation */
         .nav-drawer {
             position: fixed;
-            top: 0;
+            top: 0; /* will be adjusted by JS to sit below header */
             left: 0;
-            height: 100vh;
+            height: calc(100vh - var(--header-height, 84px));
             width: 280px;
             background: white;
             box-shadow: 0 20px 40px rgba(2,6,23,0.12);
             transform: translateX(-100%);
             transition: transform 0.28s ease;
-            z-index: 40;
-            padding-top: 84px; /* leave room for header */
+            z-index: 900; /* drawer must be above backdrop but below header */
+            padding-top: 0;
             display: flex;
             flex-direction: column;
             gap: 6px;
         }
         .nav-drawer.open { transform: translateX(0); }
 
-        /* backdrop behind drawer */
+        /* backdrop behind drawer (must be under drawer) */
         .drawer-backdrop {
             position: fixed;
-            inset: 0;
+            left: 0;
+            right: 0;
+            top: 0; /* JS will set top to header height */
             background: rgba(2,6,23,0.45);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.2s ease;
-            z-index: 35;
+            z-index: 800; /* behind drawer so drawer isn't darkened */
         }
         .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
 
@@ -113,6 +115,21 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            justify-content: space-between; /* changed: keep left group (menu + title) on left and allow space on right */
+        }
+
+        /* new: left grouping for hamburger + title */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* optional right slot (keeps layout stable) */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .back-btn {
@@ -692,55 +709,63 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
+                <div class="header-left">
+                    <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
 
-                <div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
-
-                <nav id="main-nav" class="nav-drawer" aria-hidden="true" aria-label="Primary navigation">
-                    <a class="nav-link" href="dashboard.html">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>
-                        <span>Dashboard</span>
-                    </a>
-                    <a class="nav-link" href="scan.html">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h2l1-2h6l1 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><circle cx="12" cy="12" r="3"/></svg>
-                        <span>Scan Waste</span>
-                    </a>
-                    <a class="nav-link" href="segregation.html">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a9.9 9.9 0 0 0-7 3l1.5 1.5L8 6l-3 3 1.4 1.4L7 10a8 8 0 1 0 8-8zM4 18l1.5-1.5L7 18l3-3-1.4-1.4L8 15a8 8 0 0 0 8 8 9.9 9.9 0 0 0-7-3z"/></svg>
-                        <span>Segregation Guide</span>
-                    </a>
-                    <a class="nav-link" href="find-bin.html">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-                        <span>Find Nearest Bin</span>
-                    </a>
-                    <a class="nav-link" href="diy-reuse.html">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 21h6v-1H9v1zm3-19a6 6 0 0 0-6 6c0 2.4 1.5 3.9 2 4.6V15h8v-2.4c.5-.7 2-2.2 2-4.6a6 6 0 0 0-6-6z"/></svg>
-                        <span>DIY Reuse</span>
-                    </a>
-                    <a class="nav-link" href="report.html">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3h2v13H5V3zm3 0h9l-2 4 2 4H8V3z"/></svg>
-                        <span>Report Issue</span>
-                    </a>
-                    <a class="nav-link" href="index.html">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/></svg>
-                        <span>Logout</span>
-                    </a>
-                </nav> 
-                <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <div class="header-icon-container">
-                        <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                        </svg>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div class="header-icon-container">
+                            <svg class="icon icon-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                            </svg>
+                        </div>
+                        <h1>Find Nearest Bin</h1>
                     </div>
-                    <h1>Find Nearest Bin</h1>
+                </div>
+
+                <div class="header-right">
+                    <!-- future controls / avatar -->
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- moved drawer/backdrop out of header so it layers correctly -->
+    <div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
+
+    <nav id="main-nav" class="nav-drawer" aria-hidden="true" aria-label="Primary navigation">
+        <a class="nav-link" href="dashboard.html">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>
+            <span>Dashboard</span>
+        </a>
+        <a class="nav-link" href="scan.html">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h2l1-2h6l1 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span>Scan Waste</span>
+        </a>
+        <a class="nav-link" href="segregation.html">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a9.9 9.9 0 0 0-7 3l1.5 1.5L8 6l-3 3 1.4 1.4L7 10a8 8 0 1 0 8-8zM4 18l1.5-1.5L7 18l3-3-1.4-1.4L8 15a8 8 0 0 0 8 8 9.9 9.9 0 0 0-7-3z"/></svg>
+            <span>Segregation Guide</span>
+        </a>
+        <a class="nav-link" href="find-bin.html">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <span>Find Nearest Bin</span>
+        </a>
+        <a class="nav-link" href="diy-reuse.html">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 21h6v-1H9v1zm3-19a6 6 0 0 0-6 6c0 2.4 1.5 3.9 2 4.6V15h8v-2.4c.5-.7 2-2.2 2-4.6a6 6 0 0 0-6-6z"/></svg>
+            <span>DIY Reuse</span>
+        </a>
+        <a class="nav-link" href="report.html">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3h2v13H5V3zm3 0h9l-2 4 2 4H8V3z"/></svg>
+            <span>Report Issue</span>
+        </a>
+        <a class="nav-link" href="index.html">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/></svg>
+            <span>Logout</span>
+        </a>
+    </nav> 
 
     <!-- Main Content -->
     <main>
@@ -1141,45 +1166,51 @@
             // Or: window.location.href = 'dashboard.html';
         }
 
-        // Hamburger drawer toggle
+        // Hamburger drawer toggle — updated to place drawer under header and recalc on resize
         (function() {
             const menuBtn = document.querySelector('.menu-btn');
             const navDrawer = document.getElementById('main-nav');
             const backdrop = document.getElementById('drawer-backdrop');
+            const headerEl = document.querySelector('header');
 
-            if (menuBtn && navDrawer) {
-                const openDrawer = () => {
-                    navDrawer.classList.add('open');
-                    backdrop && backdrop.classList.add('open');
-                    menuBtn.setAttribute('aria-expanded', 'true');
-                    navDrawer.setAttribute('aria-hidden', 'false');
-                };
-                const closeDrawer = () => {
-                    navDrawer.classList.remove('open');
-                    backdrop && backdrop.classList.remove('open');
-                    menuBtn.setAttribute('aria-expanded', 'false');
-                    navDrawer.setAttribute('aria-hidden', 'true');
-                    menuBtn.focus();
-                };
+            if (!menuBtn || !navDrawer || !headerEl) return;
 
-                menuBtn.addEventListener('click', (e) => {
-                    const isOpen = navDrawer.classList.contains('open');
-                    if (isOpen) closeDrawer(); else openDrawer();
-                });
-
-                // close when clicking backdrop
-                backdrop && backdrop.addEventListener('click', closeDrawer);
-
-                // close on escape
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') closeDrawer();
-                });
-
-                // close when a nav link is activated
-                navDrawer.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', () => closeDrawer());
-                });
+            function updateDrawerPosition() {
+                const headerHeight = headerEl.offsetHeight || 0;
+                navDrawer.style.top = headerHeight + 'px';
+                navDrawer.style.height = `calc(100vh - ${headerHeight}px)`;
+                if (backdrop) {
+                    backdrop.style.top = headerHeight + 'px';
+                    backdrop.style.height = `calc(100vh - ${headerHeight}px)`;
+                }
+                document.documentElement.style.setProperty('--header-height', headerHeight + 'px');
             }
+
+            updateDrawerPosition();
+            window.addEventListener('resize', updateDrawerPosition);
+
+            const openDrawer = () => {
+                navDrawer.classList.add('open');
+                backdrop && backdrop.classList.add('open');
+                menuBtn.setAttribute('aria-expanded', 'true');
+                navDrawer.setAttribute('aria-hidden', 'false');
+            };
+            const closeDrawer = () => {
+                navDrawer.classList.remove('open');
+                backdrop && backdrop.classList.remove('open');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                navDrawer.setAttribute('aria-hidden', 'true');
+                menuBtn.focus();
+            };
+
+            menuBtn.addEventListener('click', () => {
+                const isOpen = navDrawer.classList.contains('open');
+                if (isOpen) closeDrawer(); else openDrawer();
+            });
+
+            backdrop && backdrop.addEventListener('click', closeDrawer);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+            navDrawer.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', closeDrawer));
         })();
     </script>
 </body>
