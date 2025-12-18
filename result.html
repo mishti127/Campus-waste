@@ -35,22 +35,63 @@ header {
   gap:14px;
 }
 
-.back-btn {
-  width:48px;
-  height:48px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
+/* HAMBURGER */
+.menu-btn{
+  font-size:26px;
+  background:none;
   border:none;
-  background:transparent;
   cursor:pointer;
 }
-.back-btn:hover { background:#f0f0f0; }
-.back-btn svg { width:20px; height:20px; fill:#374151 }
 
+/* LOGO */
 .brand-logo svg { width:48px; height:48px; }
 .header-title { font-size:1.875rem; font-weight:700; color:#166534 }
+
+/* SLIDER */
+#menuOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  z-index:998;
+}
+
+#sideMenu{
+  position:fixed;
+  top:0;
+  left:-260px;
+  width:260px;
+  height:100%;
+  background:#fff;
+  transition:0.3s;
+  z-index:999;
+  box-shadow:2px 0 12px rgba(0,0,0,0.2);
+}
+
+.slider-header{
+  background:#16a34a;
+  color:white;
+  padding:18px;
+  font-weight:700;
+  display:flex;
+  justify-content:space-between;
+}
+
+.slider-header span{
+  cursor:pointer;
+}
+
+#sideMenu a{
+  display:block;
+  padding:14px 18px;
+  font-weight:600;
+  color:#166534;
+  text-decoration:none;
+}
+
+#sideMenu a:hover{
+  background:#e7f5ec;
+}
 
 /* RESULT PANEL */
 .result-panel {
@@ -62,19 +103,12 @@ header {
   box-shadow:0 6px 20px rgba(0,0,0,0.06);
 }
 
-.result-title {
-  margin:18px 0;
-  font-size:20px;
-  color:#0f172a;
-}
-
-/* MAIN CONTENT */
 .container {
   display:flex;
   gap:40px;
 }
 
-/* CAMERA (RESTORED) */
+/* CAMERA */
 .capture-box {
   width:42%;
   height:380px;
@@ -91,8 +125,7 @@ header {
   justify-content:center;
 }
 
-.capture-video,
-.capture-image {
+.capture-video {
   width:100%;
   height:100%;
   object-fit:cover;
@@ -104,17 +137,24 @@ header {
   bottom:14px;
   left:50%;
   transform:translateX(-50%);
-  display:flex;
-  gap:8px;
 }
 
 .snap-btn {
-  padding:10px 14px;
+  padding:10px 16px;
   border-radius:8px;
   border:none;
-  background:rgba(255,255,255,0.9);
+  background:white;
   font-weight:600;
   cursor:pointer;
+}
+
+/* COINS */
+#coinsMsg{
+  text-align:center;
+  margin-top:10px;
+  font-weight:700;
+  color:#15803d;
+  display:none;
 }
 
 /* INFO */
@@ -125,30 +165,13 @@ header {
   margin-bottom:26px;
   background:#e9f5e9;
   border-radius:10px;
-  font-size:15px;
 }
 
-.progress-bar {
-  width:100%;
-  height:14px;
-  background:#ddd;
-  border-radius:10px;
-  margin:8px 0;
-}
-
-.fill {
-  height:14px;
-  background:#7b4df7;
-  width:89%;
-  border-radius:10px;
-}
-
-/* ACTION BUTTONS — CENTERED & BIG */
+/* BUTTONS */
 .action-wrapper {
-  width:100%;
-  margin:24px auto 40px;
   display:flex;
   justify-content:center;
+  margin:30px 0;
 }
 
 .actions {
@@ -156,7 +179,7 @@ header {
   gap:40px;
 }
 
-.actions .primary {
+.primary {
   background:#16a34a;
   color:#fff;
   border:none;
@@ -164,37 +187,40 @@ header {
   border-radius:10px;
   font-size:18px;
   font-weight:700;
-  cursor:pointer;
-  min-width:240px;
 }
 
-.actions .secondary {
-  background:#f8faf8;
+.secondary {
+  border:2px solid #16a34a;
   color:#166534;
-  border:2px solid #d1e7d6;
   padding:20px 38px;
   border-radius:10px;
   font-size:18px;
   font-weight:700;
-  cursor:pointer;
   text-decoration:none;
-  min-width:240px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
 </style>
 </head>
 
 <body>
 
+<!-- SLIDER -->
+<div id="menuOverlay" onclick="closeMenu()"></div>
+
+<div id="sideMenu">
+  <div class="slider-header">
+    Menu
+    <span onclick="closeMenu()">✕</span>
+  </div>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="scan.html">Scan Waste</a>
+  <a href="segregation.html">Segregation</a>
+  <a href="find-bin.html">Find Bin</a>
+  <a href="diy-reuse.html">DIY & Reuse</a>
+</div>
+
 <header>
   <div class="header-inner">
-    <a href="scan.html" class="back-btn">
-      <svg viewBox="0 0 24 24">
-        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-      </svg>
-    </a>
+    <button class="menu-btn" onclick="openMenu()">☰</button>
 
     <div class="brand-logo">
       <svg viewBox="0 0 64 64">
@@ -208,43 +234,58 @@ header {
 </header>
 
 <div class="result-panel">
-  <h2 class="result-title">✔ Detection Complete</h2>
+  <h2>✔ Detection Complete</h2>
 
   <div class="container">
-
     <div class="capture-box">
       <div class="capture-wrapper">
-        <video id="cameraVideo" class="capture-video" autoplay playsinline></video>
-        <img id="capturedImage" class="capture-image" style="display:none;">
+        <video class="capture-video"></video>
         <div class="capture-controls">
           <button id="snapBtn" class="snap-btn">📸 Capture</button>
-          <button id="retakeBtn" class="snap-btn" style="display:none;">↺ Retake</button>
         </div>
       </div>
+      <div id="coinsMsg">🎉 10 Coins Added</div>
     </div>
 
     <div class="info-box">
       <div class="box"><strong>Detected Item</strong><br>Paper Cup</div>
       <div class="box"><strong>Category</strong><br>Paper</div>
-      <div class="box">
-        <strong>Confidence Level</strong>
-        <div class="progress-bar"><div class="fill"></div></div>
-        89%
-      </div>
       <div class="box"><strong>Dispose In</strong><br>Blue Bin</div>
-      <div class="box"><strong>Disposal Tip</strong><br>Remove plastic lid before throwing</div>
+      <div class="box"><strong>Tip</strong><br>Remove plastic lid</div>
     </div>
-
   </div>
 </div>
 
-<!-- CENTERED BUTTONS -->
 <div class="action-wrapper">
   <div class="actions">
-    <button id="scanAgainBtn" class="primary">Scan Another Item</button>
-    <a href="segregation.html" class="secondary">View Segregation Guide</a>
+    <button class="primary">Scan Another Item</button>
+    <a class="secondary" href="segregation.html">View Segregation Guide</a>
   </div>
 </div>
+
+<script>
+function openMenu(){
+  document.getElementById("sideMenu").style.left="0";
+  document.getElementById("menuOverlay").style.display="block";
+}
+
+function closeMenu(){
+  document.getElementById("sideMenu").style.left="-260px";
+  document.getElementById("menuOverlay").style.display="none";
+}
+
+document.getElementById("snapBtn").onclick = function(){
+  this.innerText = "✔ Captured";
+  document.getElementById("coinsMsg").style.display = "block";
+
+  // 🔥 COIN LOGIC
+  let coins = localStorage.getItem("coins");
+  coins = coins ? parseInt(coins) : 0;
+  coins += 10;
+  localStorage.setItem("coins", coins);
+};
+</script>
+
 
 </body>
 </html>
